@@ -3,6 +3,10 @@ body {
   height: 100%;
 }
 
+.container {
+  padding: 12px;
+}
+
 main {
   padding: 10px;
 }

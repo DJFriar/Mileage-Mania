@@ -8,9 +8,32 @@
 <body>
   <div class="container" uk-height-viewport="expand: true">
     <%- include('../partials/topnav'); %>
-      <main>
-        Contact content goes here.
-      </main>
+    <main>
+      <div>
+        <p>Contact Form Goes Here</p>
+      </div>
+      <div uk-grid>
+        <div>
+          <p>CONTACT INFO</p>
+          <div uk-grid>
+            <div><i class="fad fa-home"></i></div>
+            <div>
+              Mailing Address:<br/>
+              P.O. Box 60212<br/>
+              King of Prussia, PA 19406-0212
+            </div>
+          </div>
+          <div uk-grid>
+            <div><i class="fal fa-comments"></i></div>
+            <div>
+              Email Address:<br/>
+              <a class="hidden-link" href="mailto:jeff@mileagemania.org">jeff@mileagemania.org</a>
+            </div>
+          </div>
+        </div>
+        <div><img data-src="/images/contact.jpg" width="434" height="370" alt="Jeff sitting on his bike" uk-img></div>
+      </div>
+    </main>
   </div>
   <footer>
     <%- include('../partials/footer'); %>

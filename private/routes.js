@@ -1,4 +1,7 @@
 var path = require("path");
+const db = require("../models");
+// Requiring our custom middleware for checking if a user is logged in
+const isAuthenticated = require("../config/isAuthenticated");
 
 module.exports = function (app) {
   // ===============================================================================
@@ -6,6 +9,10 @@ module.exports = function (app) {
   // ===============================================================================
   app.get("/", function (req, res) {
     res.render("pages/index");
+  });
+
+  app.get("/login", function (req, res) {
+    res.render("pages/login");
   });
 
   app.get("/2021", function (req, res) {

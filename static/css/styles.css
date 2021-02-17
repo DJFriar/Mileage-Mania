@@ -79,10 +79,15 @@ h6 {
   /* color: #fff; */
 }
 
-/* a.hidden-link:link,
+a.hidden-link:link,
 a.hidden-link:visited {
-  color: #d5dae4;
-} */
+  color: #999;
+}
+
+a.hidden-link-text:link,
+a.hidden-link-text:visited {
+  color: #666;
+}
 
 /* a.hidden-link:hover {
   color: #666;

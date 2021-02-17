@@ -3,31 +3,31 @@
 </head>
 
 <body>
-  <div class="container" uk-height-viewport="expand: true">
-    <%- include('../partials/topnav'); %>
-  </div>
-  <main>
-    <div class="uk-container-xsmall uk-margin-auto">
-      <div class="">
-        <h2 class="uk-text-center">Login</h2>
-        <form class="login">
-          <div class="uk-margin">
-            <label class="uk-form-label" for="form-s-email">Email</label>
-            <input class="uk-input" id="form-s-email" type="email" placeholder="name@domain.com">
-          </div>
-          <div class="uk-margin">
-            <label class="uk-form-label" for="form-s-password">Password</label>
-            <input class="uk-input" id="form-s-password" type="password" placeholder="Password">
-          </div>
-          <button class="uk-button uk-button-primary uk-button-small">Login</button>
-        </form>
-        <p>Or sign up <a href="/signup">here</a></p>
+  <%- include('../partials/topnav'); %>
+  <div class="uk-container" uk-height-viewport="expand: true">
+    <main>
+      <div class="uk-container-xsmall uk-margin-auto">
+        <div class="">
+          <h2 class="uk-text-center">Login</h2>
+          <form class="login">
+            <div class="uk-margin">
+              <label class="uk-form-label" for="form-s-email">Email</label>
+              <input class="uk-input" id="form-s-email" type="email" placeholder="name@domain.com">
+            </div>
+            <div class="uk-margin">
+              <label class="uk-form-label" for="form-s-password">Password</label>
+              <input class="uk-input" id="form-s-password" type="password" placeholder="Password">
+            </div>
+            <button class="uk-button uk-button-primary uk-button-small">Login</button>
+          </form>
+          <p>Or sign up <a href="/signup">here</a></p>
+        </div>
       </div>
-    </div>
-  </main>
-  <footer>
-    <%- include('../partials/footer'); %>
-  </footer>
+    </main>
+    <footer>
+      <%- include('../partials/footer'); %>
+    </footer>
+  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="js/login.js"></script>
 </body>

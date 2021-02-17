@@ -3,13 +3,18 @@
 </head>
 
 <body>
-  <div class="container" uk-height-viewport="expand: true">
-    <%- include('../partials/topnav'); %>
+  <%- include('../partials/topnav'); %>
+  <div class="uk-container" uk-height-viewport="expand: true">
+    <main>
+      <div class="uk-container-small uk-margin-auto">
+        <div class="uk-text-center">
+          <img data-src="/images/MMHeader.png" width="434" height="370" alt="Jeff sitting on his bike" uk-img>
+        </div>
+        <p>Index content goes here</p>
+      </div>
+    </main>
+    <footer>
+      <%- include('../partials/footer'); %>
+    </footer>
   </div>
-  <main>
-    Index content goes here
-  </main>
-  <footer>
-    <%- include('../partials/footer'); %>
-  </footer>
 </body>

@@ -15,6 +15,10 @@ module.exports = function (app) {
     res.render("pages/login");
   });
 
+  app.get("/signup", function (req, res) {
+    res.render("pages/signup");
+  });
+
   app.get("/2021", function (req, res) {
     res.render("pages/2021");
   });

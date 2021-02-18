@@ -38,13 +38,18 @@ module.exports = function(app) {
   // otherwise send back an error
   app.post("/api/signup", (req, res) => {
     db.User.create({
-      email: req.body.email,
-      password: req.body.password
+      FirstName: req.body.FirstName,
+      LastName: req.body.LastName,
+      UserName: req.body.UserName,
+      Email: req.body.Email,
+      Password: req.body.Password
     })
       .then(() => {
+        console.log("API Login Triggered");
         res.redirect(307, "/api/login");
       })
       .catch(err => {
+        console.log("API Error Encountered");
         res.status(401).json(err);
       });
   });

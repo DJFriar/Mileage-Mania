@@ -19,6 +19,16 @@ module.exports = function (app) {
     res.render("pages/signup");
   });
 
+  app.get("/profile", isAuthenticated, (req, res) => {
+    // Get profile info
+    db.User.findAll({raw: true}).then(data => {
+      const ejsObject = {
+        users: data
+      };
+      res.render("pages/profile", ejsObject);
+    });
+  });
+
   app.get("/2021", function (req, res) {
     res.render("pages/2021");
   });

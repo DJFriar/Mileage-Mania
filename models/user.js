@@ -34,12 +34,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     isAdmin: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
       defaultValue: 0
     },
     isActive: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
       defaultValue: 0
     }
   });

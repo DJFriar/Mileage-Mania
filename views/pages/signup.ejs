@@ -8,19 +8,34 @@
     <main>
       <div class="uk-container-xsmall uk-margin-auto">
         <div class="">
-          <h2 class="uk-text-center">Login</h2>
-          <form class="login">
-            <div class="uk-margin">
-              <label class="uk-form-label" for="form-s-email">Email</label>
-              <input class="uk-input" id="form-s-email" type="email" placeholder="name@domain.com">
+          <h2 class="uk-text-center">Signup</h2>
+          <form class="signup">
+            <div class="uk-margin-small uk-grid-small uk-child-width-1-2 uk-grid" uk-grid>
+              <div>
+                <label class="uk-form-label" for="firstname-input">First Name</label>
+                <input class="uk-input" id="firstname-input" type="text" placeholder="FirstName">
+              </div>
+              <div>
+                <label class="uk-form-label" for="lastname-input">Last Name</label>
+                <input class="uk-input" id="lastname-input" type="text" placeholder="LastName">
+              </div>
             </div>
             <div class="uk-margin">
-              <label class="uk-form-label" for="form-s-password">Password</label>
-              <input class="uk-input" id="form-s-password" type="password" placeholder="Password">
+              <label class="uk-form-label" for="email-input">Email</label>
+              <input class="uk-input" id="email-input" type="email" placeholder="name@domain.com">
             </div>
-            <button class="uk-button uk-button-primary uk-button-small">Login</button>
+            <div class="uk-margin">
+              <label class="uk-form-label" for="password-input">Password</label>
+              <input class="uk-input" id="password-input" type="password" placeholder="Password">
+            </div>
+            <div class="uk-margin">
+              <label class="uk-form-label" for="username-input">Username</label>
+              <input class="uk-input" id="username-input" type="text" placeholder="UserName">
+            </div>
+            
+            <button type="submit" class="uk-button uk-button-primary uk-button-small">Create Account</button>
           </form>
-          <p>Or sign up <a href="/signup">here</a></p>
+          <p>If you already have a login, please click <a href="/login">here</a>.</p>
         </div>
       </div>
     </main>
@@ -29,5 +44,5 @@
     </footer>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="js/login.js"></script>
+  <script type="text/javascript" src="js/signup.js"></script>
 </body>

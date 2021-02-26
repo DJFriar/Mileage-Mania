@@ -49,6 +49,18 @@ module.exports = function (app) {
     res.render("pages/history");
   });
 
+  app.get("/submit", function (req, res) {
+    res.render("pages/submit");
+  });
+
+  app.get("/review", function (req, res) {
+    res.render("pages/review");
+  });
+
+  app.get("/stats", function (req, res) {
+    res.render("pages/stats");
+  });
+
   // If no matching route is found, return the 404 page
   app.get("*", function (req, res) {
     res.render("pages/404");

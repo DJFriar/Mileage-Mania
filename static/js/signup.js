@@ -24,7 +24,7 @@ $(document).ready(() => {
       return;
     }
     // If we have an email and password, run the signUpUser function
-    signUpUser(userData.firstName, userData.lastName, userData.userName, userData.Email, userData.Password);
+    signUpUser(userData.FirstName, userData.LastName, userData.UserName, userData.Email, userData.Password);
     firstNameInput.val("");
     lastNameInput.val("");
     userNameInput.val("");
@@ -35,10 +35,11 @@ $(document).ready(() => {
   // Does a post to the signup route. If successful, we are redirected to the profile page
   // Otherwise we log any errors
   function signUpUser(firstname, lastname, username, email, password) {
+    console.log("Values provided were: " + firstname + ", " + lastname + ", " + username + ", " + email + ", " + password);
     $.post("/api/signup", {
-      firstName: firstname,
-      lastName: lastname,
-      userName: username,
+      FirstName: firstname,
+      LastName: lastname,
+      UserName: username,
       Email: email,
       Password: password
     })
@@ -49,6 +50,7 @@ $(document).ready(() => {
   }
 
   function handleLoginErr(err) {
+    console.log(err);
     $("#alert .msg").text(err.responseJSON);
     $("#alert").fadeIn(500);
   }

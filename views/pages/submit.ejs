@@ -4,12 +4,131 @@
 
 <body>
   <%- include('../partials/topnav'); %>
-  <div class="uk-container" uk-height-viewport="expand: true">
-    <main>
-      Submit content goes here
+    <div class="uk-container" uk-height-viewport="expand: true">
+      <main>
+        <h1>2021 Rally Submission Tool</h1>
+        <div class="uk-container">
+          <ul uk-tab>
+            <li><a href="#">Submit Mileage</a></li>
+            <li><a href="#">Submit Grand Tour</a></li>
+          </ul>
+
+          <ul class="uk-switcher uk-margin">
+            <li>
+              <div class="uk-grid-small uk-grid" uk-grid>
+                <div class="uk-child-width-2-3@m">
+                  <img class="uk-align-center" data-src="/images/TacoLogo.jpg" width="434" height="370"
+                    alt="Example Rally Flag" uk-img>
+                </div>
+                <div class="uk-child-width-1-3@m">
+                  <!-- <p>
+                    Submit a photo of your odometer and a dated business receipt. You do not have to include your rally flag.
+                  </p> -->
+                  <form>
+                    <label class="uk-form-label">Odometer:</label>
+                    <input class="uk-input" type="text">
+                  </form>
+                  <button class="uk-button uk-button-primary">Submit</button>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="uk-grid-small uk-grid" uk-grid>
+                <div class="uk-child-width-2-3@m">
+                  <img class="uk-align-center" data-src="/images/TacoLogo.jpg" width="434" height="370"
+                    alt="Example Rally Flag" uk-img>
+                </div>
+                <div class="uk-child-width-expand@m">
+                  <!-- <p>
+                    Submit a photo of your odometer and a dated business receipt. You do not have to include your rally flag.
+                  </p> -->
+                  <form>
+                    <label class="uk-form-label">Choose a Bonus:</label>
+                    <select class="uk-select">
+                      <option>BFFL</option>
+                      <option>BIGD</option>
+                      <option>BONE</option>
+                      <option>FREE</option>
+                    </select>
+                  </form>
+                  <button class="uk-button uk-button-primary">Submit</button>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+          <div class="uk-margin-top">
+            <h4>Previous Submissions</h4>
+          </div>
+          <div
+            class="uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l uk-grid uk-flex-top uk-flex-wrap-top"
+            uk-grid="masonry: true">
+            <div>
+              <div class="uk-card uk-card-default">
+                <div class="uk-card-media-top">
+                  <img src="images/TacoLogo.jpg" alt="">
+                </div>
+                <div class="uk-card-body">
+                  <span class="fad fa-tachometer-alt fa-lg"></span>
+                  <span class="uk-card-badge uk-label uk-label-warning">Pending</span>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="uk-card uk-card-default">
+                <div class="uk-card-media-top">
+                  <img src="images/TacoLogo.jpg" alt="">
+                </div>
+                <div class="uk-card-body">
+                  <span class="fad fa-paw fa-lg"></span>
+                  <div class="uk-card-badge uk-label uk-label-success">Approved</div>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="uk-card uk-card-default">
+                <div class="uk-card-media-top">
+                  <img src="images/TacoLogo.jpg" alt="">
+                </div>
+                <div class="uk-card-body">
+                  <div class="uk-card-badge uk-label uk-label-success">Approved</div>
+                  <span class="fad fa-paw fa-lg"></span>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="uk-card uk-card-default">
+                <div class="uk-card-media-top">
+                  <img src="images/TacoLogo.jpg" alt="">
+                </div>
+                <div class="uk-card-body">
+                  <div class="uk-card-badge uk-label uk-label-danger">Rejected</div>
+                  <span class="fad fa-paw fa-lg"></span>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="uk-card uk-card-default">
+                <div class="uk-card-media-top">
+                  <img src="images/TacoLogo.jpg" alt="">
+                </div>
+                <div class="uk-card-body">
+                  <div class="uk-card-badge uk-label uk-label-success">Approved</div>
+                  <span class="fad fa-tachometer-alt fa-lg"></span>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
     </main>
     <footer>
       <%- include('../partials/footer'); %>
     </footer>
-  </div>
+    </div>
 </body>

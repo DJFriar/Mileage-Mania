@@ -153,3 +153,11 @@ footer {
   border-radius: 2px;
   text-transform: uppercase;
 }
+
+.mm-img-border {
+  border: solid 1px black;
+}
+
+.uk-card-body {
+  padding: 20px;
+}

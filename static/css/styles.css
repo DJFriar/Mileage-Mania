@@ -134,7 +134,20 @@ footer {
   margin-bottom: 12px;
 }
 
-.mm-card-badge {
+.mm-button-green {
+  background-color: green;
+  color: #fff;
+  border: 1px solid transparent;
+}
+
+.mm-card-badge-left {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+}
+
+.mm-card-badge-right {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -152,6 +165,14 @@ footer {
   white-space: nowrap;
   border-radius: 2px;
   text-transform: uppercase;
+}
+
+.mm-flag {
+  padding: 4px 10px;
+  background-color: #444;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.05em;
 }
 
 .mm-img-border {

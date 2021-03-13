@@ -182,3 +182,22 @@ footer {
 .uk-card-body {
   padding: 20px;
 }
+
+#wrapper {
+  text-align:center;
+  margin:0 auto;
+  padding:0px;
+  width:995px;
+}
+
+#output_image {
+  max-width:300px;
+}
+
+.image-submission > input {
+    display: none;
+}
+
+.image-submission > img {
+  cursor: pointer;
+}

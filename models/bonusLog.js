@@ -15,6 +15,12 @@ module.exports = function(sequelize, DataTypes) {
     Status: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    // imageData: {
+    //   type: DataTypes.BLOB("long")
+    // }
+    imagePath: {
+      type: DataTypes.STRING
     }
   });
 

@@ -1,12 +1,14 @@
-/* eslint-disable prefer-arrow-callback */
 // Requiring our models and passport as we've configured it
 const db = require("../models");
+const uploadSubmission = require("../controllers/uploadSubmission");
 const passport = require("../config/passport");
+const multer = require('multer');
+const upload = multer({ dest: '../static/uploads' });
 
-module.exports = function(app) {
+module.exports = function (app) {
   // Get all users
-  app.get("/api/riders", function(req, res) {
-    db.User.all(function(data) {
+  app.get("/api/riders", function (req, res) {
+    db.User.all(function (data) {
       const hbsObject = {
         users: data
       };
@@ -16,8 +18,8 @@ module.exports = function(app) {
   });
 
   // Get all bikes
-  app.get("/api/bikes", function(req, res) {
-    db.Bike.findAll({}).then(function(dbPost) {
+  app.get("/api/bikes", function (req, res) {
+    db.Bike.findAll({}).then(function (dbPost) {
       res.json(dbPost);
     });
   });
@@ -73,6 +75,11 @@ module.exports = function(app) {
         id: req.user.id
       });
     }
+  });
+
+  // Accept the image the user uploaded, resize it and save it.
+  app.post('/image-upload', uploadSubmission.uploadImages, uploadSubmission.resizeImages, uploadSubmission.getResult, function (req, res) {
+    // TODO: Add proper page refreshing.
   });
 
   // Create a Park

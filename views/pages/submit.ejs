@@ -16,9 +16,22 @@
           <ul class="uk-switcher uk-margin">
             <li>
               <div class="uk-grid-small uk-grid" uk-grid>
+                <form class="mt-4 image-submission" action="/image-upload" method="POST" enctype="multipart/form-data">
+                  <label for="input-images">
+                    <img class="uk-align-center mm-img-border" data-src="/images/MMPlaceHolder.png" width="434"
+                    height="370" alt="Click Here to Upload" uk-img>
+                  </label>
+                  <input type="file" name="image-to-submit" id="input-images" class="form-control-file border" />
+                  <button type="submit" class="uk-button uk-button-primary">Submit</button>
+                </form>
+                <!-- <form action="/upload" method="post" enctype="multipart/form-data">
+                  <input type="file" accept="image/*" name="photo" >
+                  <input type="submit" value="upload">
+                </form> -->
                 <div class="uk-child-width-2-3@m">
-                  <img class="uk-align-center mm-img-border" data-src="/images/MMPlaceHolder.png" width="434" height="370"
-                    alt="Click Here to Upload" uk-img>
+                  <div class="preview-images"></div>
+                  <!-- <img class="uk-align-center mm-img-border" data-src="/images/MMPlaceHolder.png" width="434"
+                    height="370" alt="Click Here to Upload" uk-img> -->
                 </div>
                 <div class="uk-child-width-1-3@m">
                   <!-- <p>
@@ -35,8 +48,8 @@
             <li>
               <div class="uk-grid-small uk-grid" uk-grid>
                 <div class="uk-child-width-2-3@m">
-                  <img class="uk-align-center mm-img-border" data-src="/images/MMPlaceHolder.png" width="434" height="370"
-                    alt="CLick Here to Upload" uk-img>
+                  <img class="uk-align-center mm-img-border" data-src="/images/MMPlaceHolder.png" width="434"
+                    height="370" alt="CLick Here to Upload" uk-img>
                 </div>
                 <div class="uk-child-width-expand@m">
                   <!-- <p>
@@ -206,32 +219,6 @@
       <%- include('../partials/footer'); %>
     </footer>
     </div>
-
-    <script>
-      mapkit.init({
-        authorizationCallback: function (done) {
-          done(
-            "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkY0VUo2Mks1V1EifQ.eyJpc3MiOiI4WEhZN0VRN1RFIiwiaWF0IjoxNjA0ODgwODczLCJleHAiOjE2MzE2NjQ4NzN9.lB16PGBWkiQpDrjSuDjpqhTbKPoHAcuzd03Lcjrvt-wS_x2aHBC4R3m58plMQ0l0TwLcB8Ujv-JyWBqhZdmOuA"
-          );
-        },
-      });
-  
-      var MarkerAnnotation = mapkit.MarkerAnnotation;
-      var photoCoords = new mapkit.Coordinate(33.639588, -95.523926);
-  
-      var demoRegion = new mapkit.CoordinateRegion(
-        new mapkit.Coordinate(33.639588, -95.523926),
-        new mapkit.CoordinateSpan(0.167647972, 0.354985255)
-      );
-      var map = new mapkit.Map("map");
-  
-      var locationAnnotation = new MarkerAnnotation(photoCoords, {
-        color: "#ffff00",
-        title: "TX006",
-        glyphText: "📷",
-      });
-      map.showItems([locationAnnotation]);
-  
-      map.region = demoRegion;
-    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/submit.js"></script>
 </body>

@@ -15,6 +15,9 @@ module.exports = function(sequelize, DataTypes) {
     ReportedMileage: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    imagePath: {
+      type: DataTypes.STRING
     }
   });
 

@@ -5,7 +5,6 @@ const moment = require("moment");
 const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, cb) => {
-  console.log("multerFilter called");
   if (file.mimetype.startsWith("image")) {
     cb(null, true);
   } else {
@@ -21,9 +20,7 @@ const upload = multer({
 const uploadFiles = upload.array("image-to-submit", 1); // limit to 1 image
 
 const uploadImages = (req, res, next) => {
-  console.log("uploadImages called");
   uploadFiles(req, res, err => {
-    console.log("uploadFiles called");
     if (err) {
       return res.send(err);
     }
@@ -32,7 +29,6 @@ const uploadImages = (req, res, next) => {
 };
 
 const resizeImages = async (req, res, next) => {
-  console.log("resizeImages called");
   if (!req.files) return;
 
   req.body.images = [];
@@ -65,7 +61,6 @@ const getResult = async (req, res) => {
     .map(image => "" + image + "")
     .join("");
 
-  // return res.send(`Images were uploaded:${images}`);
   res.render("pages/submit");
 };
 

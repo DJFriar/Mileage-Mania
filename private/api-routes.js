@@ -79,7 +79,6 @@ module.exports = function (app) {
 
   // Accept the image the user uploaded, resize it and save it.
   app.post('/image-upload', uploadSubmission.uploadImages, uploadSubmission.resizeImages, uploadSubmission.getResult, function (req, res) {
-    // TODO: Add proper page refreshing.
   });
 
   // Create a Park

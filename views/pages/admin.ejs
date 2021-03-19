@@ -1,0 +1,78 @@
+<head>
+  <%- include('../partials/head'); %>
+</head>
+
+<body>
+  <%- include('../partials/topnav'); %>
+    <div class="uk-container" uk-height-viewport="expand: true">
+      <main>
+        <h1>Rally Admin Tool</h1>
+        <div class="uk-container">
+          <h4>Add Bonus</h4>
+          <form class="uk-grid-small uk-form-stacked" uk-grid>
+            <div class="uk-width-1-5@s">
+              <label class="uk-form-label" for="BonusCode">Bonus Code</label>
+              <input class="uk-input" id="BonusCode" type="text" placeholder="BIGD">
+            </div>
+            <div class="uk-width-4-5@s">
+              <label class="uk-form-label" for="BonusName">Bonus Name</label>
+              <input class="uk-input" id="BonusName" type="text" placeholder="Big Dog">
+            </div>
+            <div class="uk-width-1-1@s">
+              <label class="uk-form-label" for="BonusDescription">Bonus Description</label>
+              <textarea class="uk-textarea" id="BonusDescription" rows="5"
+                placeholder="Dogs can seem larger than life, and some artists reflect that in large sculpture."></textarea>
+            </div>
+            <div class="uk-width-1-1@s">
+              <label class="uk-form-label" for="BonusRequirements">Bonus Requirements</label>
+              <textarea class="uk-textarea" id="BonusRequirements" rows="5"
+                placeholder="Take a photo of your motorcycle near a large statue of a dog. The statue must be at least as big as your motorcycle. Advertising statues count, as well as artistic pieces."></textarea>
+            </div>
+            <div class="uk-width-1-6@s">
+              <label class="uk-form-label" for="Value">Bonus Value</label>
+              <input class="uk-input" id="Value" type="text" placeholder="1500">
+            </div>
+            <div class="uk-width-1-6@s">
+              <label class="uk-form-label" for="maxAllowed">Max Allowed</label>
+              <input class="uk-input" id="maxAllowed" type="text" placeholder="1">
+            </div>
+            <div class="uk-width-1-2@s">
+              &nbsp;
+            </div>
+            <div class="uk-width-1-6@s">
+              <label class="uk-form-label" for="saveBonusButton">&nbsp;</label>
+              <button type="button" id="saveBonusButton" class="uk-button uk-button-default">Save Bonus</button>
+            </div>
+          </form>
+          <h4>Bonus List</h4>
+          <table class="uk-table uk-table-striped uk-table-small">
+            <thead>
+                <tr>
+                    <th>Bonus Code</th>
+                    <th>Bonus Name</th>
+                    <th>Bonus Requirements</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Code 1</td>
+                    <td>Code 1 Name</td>
+                    <td>Code 1 Reqs</td>
+                </tr>
+                <tr>
+                    <td>Code 2</td>
+                    <td>Code 1 Name</td>
+                    <td>Code 2 Reqs</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+      </main>
+      <footer>
+        <%- include('../partials/footer'); %>
+      </footer>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="/js/admin.js"></script>
+</body>

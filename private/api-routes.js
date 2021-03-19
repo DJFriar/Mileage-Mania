@@ -81,12 +81,30 @@ module.exports = function (app) {
   app.post('/image-upload', uploadSubmission.uploadImages, uploadSubmission.resizeImages, uploadSubmission.getResult, function (req, res) {
   });
 
-  // Create a Park
-  app.post("/api/parks", (req, res) => {
-    db.Park.create({
-      name: req.body.name,
-      designation: req.body.designation,
-      parkid: req.body.parkid
+  // Get all bonuses
+  app.get("/api/bonus", function(req, res) {
+    db.Post.all(function(data) {
+      const dataObject = {
+        bonuses: data
+      };
+      console.log(dataObject);
+      res.render("index", dataObject);
+    });
+  });
+
+  // Create a Bonus
+  app.post("/api/bonus", (req, res) => {
+    db.bonusItem.create({
+      BonusCode: req.body.BonusCode,
+      BonusName: req.body.BonusName,
+      BonusDescription: req.body.BonusDescription,
+      BonusDescription: req.body.BonusDescription,
+      Value: req.body.Value,
+      maxAllowed: req.body.maxAllowed,
+      RallyYear: 2021,
+      hasExtraMile: false,
+      ExtraMileRequirements: "",
+      ExtraMileValue: 0
     }).then(() => {
       res.status(202).send();
     });

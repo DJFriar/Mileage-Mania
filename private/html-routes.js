@@ -61,6 +61,19 @@ module.exports = function (app) {
     res.render("pages/stats");
   });
 
+  app.get("/admin", function (req, res) {
+    // Get all bonuses
+    db.bonusItem.findAll({raw: true}).then(data => {
+      // data.forEach(item => {
+      //   item.statesFormatted = item.states.split(",").join(", ");
+      // });
+      const dataObject = {
+        bonuses: data
+      };
+      res.render("admin", dataObject);
+    });
+  });
+
   // If no matching route is found, return the 404 page
   app.get("*", function (req, res) {
     res.render("pages/404");

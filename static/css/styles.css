@@ -201,3 +201,7 @@ footer {
 .image-submission > img {
   cursor: pointer;
 }
+
+form {
+  margin-bottom: 12px;
+}

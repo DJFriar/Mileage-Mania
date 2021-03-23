@@ -9,16 +9,16 @@ $(document).ready(() => {
       BonusName: $("#BonusName").val().trim(),
       BonusDescription: $("#BonusDescription").val().trim(),
       BonusRequirements: $("#BonusRequirements").val().trim(),
-      Value: $("#Value").val().trim(),
-      maxAllowed: $("#maxAllowed").val().trim()
+      Value: parseInt($("#Value").val(),10),
+      maxAllowed: parseInt($("#maxAllowed").val(),10)
     };
 
-    $.ajax("/api/bonus/", {
-      type: "PUT",
+    $.ajax("/api/bonus", {
+      type: "POST",
       data: newBonus
     }).then(
       function() {
-        console.log(id + " was added to the Bonus List.");
+        console.log(BonusCode + "Entry added to the Bonus List.");
       }
     );
   });

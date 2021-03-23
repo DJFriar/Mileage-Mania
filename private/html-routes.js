@@ -70,7 +70,7 @@ module.exports = function (app) {
       const dataObject = {
         bonuses: data
       };
-      res.render("admin", dataObject);
+      res.render("pages/admin", dataObject);
     });
   });
 

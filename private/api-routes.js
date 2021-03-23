@@ -98,7 +98,7 @@ module.exports = function (app) {
       BonusCode: req.body.BonusCode,
       BonusName: req.body.BonusName,
       BonusDescription: req.body.BonusDescription,
-      BonusDescription: req.body.BonusDescription,
+      BonusRequirements: req.body.BonusRequirements,
       Value: req.body.Value,
       maxAllowed: req.body.maxAllowed,
       RallyYear: 2021,

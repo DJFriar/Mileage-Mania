@@ -121,10 +121,10 @@ module.exports = function (app) {
     });
   });
 
-  app.delete("/api/delWishlistPark/:parkid", (req, res) => {
-    const id = req.params.parkid;
-    console.log("Removing " + id + " from wishlist");
-    db.WishlistPark.destroy({
+  app.delete("/api/bonus/:id", (req, res) => {
+    const id = req.params.id;
+    console.log("Removing " + id + " from bonus list");
+    db.bonusItem.destroy({
       where: {
         id: id
       }

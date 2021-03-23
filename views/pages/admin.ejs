@@ -51,6 +51,7 @@
                     <th>Bonus Code</th>
                     <th>Bonus Name</th>
                     <th>Bonus Requirements</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,6 +60,7 @@
                   <td><%= bonus.BonusCode %></td>
                   <td><%= bonus.BonusName %></td>
                   <td><%= bonus.BonusRequirements %></td>
+                  <td><span class="deleteBonusButton" data-id="<%- bonus.id %>"><i class="far fa-trash-alt"></i></span></td>
               </tr>
               <% }) %>
             </tbody>

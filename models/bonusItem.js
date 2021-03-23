@@ -9,11 +9,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     BonusDescription: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(500),
       allowNull: false
     },
     BonusRequirements: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(500),
       allowNull: false
     },
     Value: {

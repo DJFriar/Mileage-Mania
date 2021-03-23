@@ -2,10 +2,8 @@ $(document).ready(() => {
   console.log("Document ready");
   // Handle Add Bonus Button
   $("#saveBonusButton").on("click", function(event) {
-    event.preventDefault();
-    console.log("Save Bonus Button was clicked");
     var newBonus = {
-      BonusCode: $("#BonusCode").val().trim(),
+      BonusCode: $("#BonusCode").val().trim().toUpperCase(),
       BonusName: $("#BonusName").val().trim(),
       BonusDescription: $("#BonusDescription").val().trim(),
       BonusRequirements: $("#BonusRequirements").val().trim(),
@@ -18,7 +16,8 @@ $(document).ready(() => {
       data: newBonus
     }).then(
       function() {
-        console.log(BonusCode + "Entry added to the Bonus List.");
+        console.log("Entry added to the Bonus List.");
+        location.reload(true);
       }
     );
   });

@@ -67,10 +67,9 @@ module.exports = function (app) {
       // data.forEach(item => {
       //   item.statesFormatted = item.states.split(",").join(", ");
       // });
-      const dataObject = {
+      res.render("pages/admin", {
         bonuses: data
-      };
-      res.render("pages/admin", dataObject);
+      });
     });
   });
 

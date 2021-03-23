@@ -38,7 +38,7 @@ require("./private/html-routes")(app);
 // =============================================================================
 // LISTENER
 // =============================================================================
-db.sequelize.sync({ force: true })
+db.sequelize.sync()
   .then(() => {
     app.listen(PORT, () => {
       console.log(

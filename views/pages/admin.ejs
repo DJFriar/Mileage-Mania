@@ -2,7 +2,7 @@
   <%- include('../partials/head'); %>
 </head>
 
-<body>
+<body id="adminPage">
   <%- include('../partials/topnav'); %>
     <div class="uk-container" uk-height-viewport="expand: true">
       <main>
@@ -51,6 +51,7 @@
                     <th>Bonus Code</th>
                     <th>Bonus Name</th>
                     <th>Bonus Requirements</th>
+                    <th>Value</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -60,6 +61,7 @@
                   <td><%= bonus.BonusCode %></td>
                   <td><%= bonus.BonusName %></td>
                   <td><%= bonus.BonusRequirements %></td>
+                  <td><%= bonus.Value %></td>
                   <td><span class="deleteBonusButton" data-id="<%- bonus.id %>"><i class="far fa-trash-alt"></i></span></td>
               </tr>
               <% }) %>

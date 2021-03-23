@@ -1,5 +1,6 @@
 $(document).ready(() => {
   console.log("Document ready");
+  
   // Handle Add Bonus Button
   $("#saveBonusButton").on("click", function() {
     var newBonus = {
@@ -17,7 +18,7 @@ $(document).ready(() => {
     }).then(
       function() {
         console.log("Entry added to the Bonus List.");
-        location.reload(true);
+        location.reload();
       }
     );
   });

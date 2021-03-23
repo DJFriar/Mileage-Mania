@@ -2,11 +2,12 @@ $(document).ready(() => {
   console.log("login js running");
   // Getting references to our form and inputs
   const loginForm = $("form.login");
-  const emailInput = $("input#email-input");
-  const passwordInput = $("input#password-input");
+  const emailInput = $("#UserEmail");
+  const passwordInput = $("#UserPassword");
 
   // When the form is submitted, we validate there's an email and password entered
   loginForm.on("submit", event => {
+    console.log("Login Button Clicked");
     event.preventDefault();
     const userData = {
       Email: emailInput.val().trim(),
@@ -14,6 +15,7 @@ $(document).ready(() => {
     };
 
     if (!userData.Email || !userData.Password) {
+      console.log("Email and Password are required!");
       return;
     }
 
@@ -25,13 +27,13 @@ $(document).ready(() => {
 
   // loginUser does a post to our "api/login" route and if successful, redirects us the the profile page
   function loginUser(email, password) {
+    console.log("loginUser function called");
     $.post("/api/login", {
       Email: email,
       Password: password
     })
       .then(() => {
         window.location.replace("/profile");
-        // If there's an error, log the error
       })
       .catch(err => {
         console.log(err);

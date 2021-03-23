@@ -6,6 +6,75 @@ const multer = require('multer');
 const upload = multer({ dest: '../static/uploads' });
 
 module.exports = function (app) {
+  // Create a Bonus
+  app.post("/api/bonus", (req, res) => {
+    db.bonusItem.create({
+      BonusCode: req.body.BonusCode,
+      BonusName: req.body.BonusName,
+      BonusDescription: req.body.BonusDescription,
+      BonusRequirements: req.body.BonusRequirements,
+      Value: req.body.Value,
+      maxAllowed: req.body.maxAllowed,
+      RallyYear: 2021,
+      hasExtraMile: false,
+      ExtraMileRequirements: "",
+      ExtraMileValue: 0
+    }).then(() => {
+      res.status(202).send();
+    });
+  });
+
+  // Delete a Bonus
+  app.delete("/api/bonus/:id", (req, res) => {
+    const id = req.params.id;
+    console.log("Removing " + id + " from bonus list");
+    db.bonusItem.destroy({
+      where: {
+        id: id
+      }
+    }).then(() => {
+      res.status(202).send();
+    });
+  });
+
+  // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
+  // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
+  // otherwise send back an error
+  app.post("/api/signup", (req, res) => {
+    db.User.create({
+      FirstName: req.body.FirstName,
+      LastName: req.body.LastName,
+      UserName: req.body.UserName,
+      Email: req.body.Email,
+      Password: req.body.Password
+    })
+      .then(() => {
+        console.log("User Created Successfully");
+        res.status(202).send();
+      })
+      .catch(err => {
+        console.log("Signup API Error Encountered");
+        res.status(401).json(err);
+      });
+  });
+
+  // Using the passport.authenticate middleware with our local strategy.
+  // If the user has valid login credentials, send them to the profile page.
+  // Otherwise the user will be sent an error
+  app.post("/api/login", passport.authenticate("local"), (req, res) => {
+    console.log(req);
+    // Sending back a password, even a hashed password, isn't a good idea
+    res.json({
+      email: req.user.Email,
+      id: req.user.id
+    });
+  });
+
+
+
+
+
+
   // Get all users
   app.get("/api/riders", function (req, res) {
     db.User.all(function (data) {
@@ -24,37 +93,9 @@ module.exports = function (app) {
     });
   });
 
-  // Using the passport.authenticate middleware with our local strategy.
-  // If the user has valid login credentials, send them to the profile page.
-  // Otherwise the user will be sent an error
-  app.post("/api/login", passport.authenticate("local"), (req, res) => {
-    // Sending back a password, even a hashed password, isn't a good idea
-    res.json({
-      email: req.user.email,
-      id: req.user.id
-    });
-  });
 
-  // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
-  // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
-  // otherwise send back an error
-  app.post("/api/signup", (req, res) => {
-    db.User.create({
-      FirstName: req.body.FirstName,
-      LastName: req.body.LastName,
-      UserName: req.body.UserName,
-      Email: req.body.Email,
-      Password: req.body.Password
-    })
-      .then(() => {
-        console.log("API Login Triggered");
-        res.redirect(307, "/api/login");
-      })
-      .catch(err => {
-        console.log("API Error Encountered");
-        res.status(401).json(err);
-      });
-  });
+
+  
 
   // Route for logging user out
   app.get("/logout", (req, res) => {
@@ -92,42 +133,12 @@ module.exports = function (app) {
     });
   });
 
-  // Create a Bonus
-  app.post("/api/bonus", (req, res) => {
-    db.bonusItem.create({
-      BonusCode: req.body.BonusCode,
-      BonusName: req.body.BonusName,
-      BonusDescription: req.body.BonusDescription,
-      BonusRequirements: req.body.BonusRequirements,
-      Value: req.body.Value,
-      maxAllowed: req.body.maxAllowed,
-      RallyYear: 2021,
-      hasExtraMile: false,
-      ExtraMileRequirements: "",
-      ExtraMileValue: 0
-    }).then(() => {
-      res.status(202).send();
-    });
-  });
-
   app.put("/api/addWishlistPark/:parkid", (req, res) => {
     const parkCode = req.params.parkid;
     console.log("Adding " + parkCode + " to user wishlist");
     db.WishlistPark.create({
       userID: req.user.id,
       parkID: parkCode
-    }).then(() => {
-      res.status(202).send();
-    });
-  });
-
-  app.delete("/api/bonus/:id", (req, res) => {
-    const id = req.params.id;
-    console.log("Removing " + id + " from bonus list");
-    db.bonusItem.destroy({
-      where: {
-        id: id
-      }
     }).then(() => {
       res.status(202).send();
     });

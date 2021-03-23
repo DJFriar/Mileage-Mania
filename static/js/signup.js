@@ -1,53 +1,32 @@
 $(document).ready(() => {
-  // Getting references to our form and input
-  const signUpForm = $("form.signup");
-  const firstNameInput = $("input#firstname-input");
-  const lastNameInput = $("input#lastname-input");
-  const userNameInput = $("input#username-input");
-  const emailInput = $("input#email-input");
-  const passwordInput = $("input#password-input");
 
   // When the signup button is clicked, we validate the email and password are not blank
-  signUpForm.on("submit", event => {
-    event.preventDefault();
-    console.log("Create Button Clicked");
-    const userData = {
-      FirstName: firstNameInput.val().trim(),
-      LastName: lastNameInput.val().trim(),
-      Email: emailInput.val().trim(),
-      Password: passwordInput.val().trim(),
-      UserName: userNameInput.val().trim()
+  $("#createUserButton").on("click", function() {
+    console.log("Create User Button Clicked");
+    var newUser = {
+      FirstName: $("#FirstName").val().trim(),
+      LastName: $("#LastName").val().trim(),
+      UserName: $("#UserName").val().trim(),
+      Email: $("#Email").val().trim(),
+      Password: $("#Password").val().trim()
     };
 
-    if (!userData.Email || !userData.Password) {
+    if (!newUser.Email || !newUser.Password) {
       console.log("Email and/or Password was blank, try again.");
       return;
     }
-    // If we have an email and password, run the signUpUser function
-    signUpUser(userData.FirstName, userData.LastName, userData.UserName, userData.Email, userData.Password);
-    firstNameInput.val("");
-    lastNameInput.val("");
-    userNameInput.val("");
-    emailInput.val("");
-    passwordInput.val("");
-  });
-
-  // Does a post to the signup route. If successful, we are redirected to the profile page
-  // Otherwise we log any errors
-  function signUpUser(firstname, lastname, username, email, password) {
-    console.log("Values provided were: " + firstname + ", " + lastname + ", " + username + ", " + email + ", " + password);
-    $.post("/api/signup", {
-      FirstName: firstname,
-      LastName: lastname,
-      UserName: username,
-      Email: email,
-      Password: password
+    // If we have an email and password, then post the new user
+    console.log("Values provided were: " + newUser.FirstName + ", " + newUser.LastName + ", " + newUser.UserName + ", " + newUser.Email + ", " + newUser.Password);
+    $.ajax("/api/signup", {
+      type: "POST",
+      data: newUser
     })
       .then(() => {
+        console.log("Reached API Signup then clause");
         window.location.replace("/profile");
       })
       .catch(handleLoginErr);
-  }
+  });
 
   function handleLoginErr(err) {
     console.log(err);

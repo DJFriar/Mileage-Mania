@@ -22,10 +22,7 @@ module.exports = function (app) {
   app.get("/profile", isAuthenticated, (req, res) => {
     // Get profile info
     db.User.findAll({raw: true}).then(data => {
-      const ejsObject = {
-        users: data
-      };
-      res.render("pages/profile", ejsObject);
+      res.render("pages/profile", {users: data});
     });
   });
 
@@ -64,9 +61,6 @@ module.exports = function (app) {
   app.get("/admin", function (req, res) {
     // Get all bonuses
     db.bonusItem.findAll({raw: true}).then(data => {
-      // data.forEach(item => {
-      //   item.statesFormatted = item.states.split(",").join(", ");
-      // });
       res.render("pages/admin", {
         bonuses: data
       });

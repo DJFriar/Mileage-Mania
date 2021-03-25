@@ -3,6 +3,7 @@ const db = require("../models");
 const uploadSubmission = require("../controllers/uploadSubmission");
 const passport = require("../config/passport");
 const multer = require('multer');
+const isAuthenticated = require("../config/isAuthenticated");
 const upload = multer({ dest: '../static/uploads' });
 
 module.exports = function (app) {
@@ -62,7 +63,7 @@ module.exports = function (app) {
   // If the user has valid login credentials, send them to the profile page.
   // Otherwise the user will be sent an error
   app.post("/api/login", passport.authenticate("local"), (req, res) => {
-    console.log(req);
+    console.log("User ID = " + req.user.id);
     // Sending back a password, even a hashed password, isn't a good idea
     res.json({
       email: req.user.Email,
@@ -70,7 +71,18 @@ module.exports = function (app) {
     });
   });
 
-
+// Create a Bike
+app.post("/api/bike", isAuthenticated, (req, res) => {
+  db.Bike.create({
+    user_id: req.user.id, // TODO: Make this use the id of the logged in user.
+    BikeName: req.body.BikeName,
+    Year: req.body.Year,
+    Make: req.body.Make,
+    Model: req.body.Model,
+  }).then(() => {
+    res.status(202).send();
+  });
+});
 
 
 

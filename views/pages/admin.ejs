@@ -8,65 +8,86 @@
       <main>
         <h1>Rally Admin Tool</h1>
         <div class="uk-container">
-          <h4>Add Bonus</h4>
-          <form class="uk-grid-small uk-form-stacked" uk-grid>
-            <div class="uk-width-1-5@s">
-              <label class="uk-form-label" for="BonusCode">Bonus Code</label>
-              <input class="uk-input" id="BonusCode" type="text" placeholder="BIGD">
-            </div>
-            <div class="uk-width-4-5@s">
-              <label class="uk-form-label" for="BonusName">Bonus Name</label>
-              <input class="uk-input" id="BonusName" type="text" placeholder="Big Dog">
-            </div>
-            <div class="uk-width-1-1@s">
-              <label class="uk-form-label" for="BonusDescription">Bonus Description</label>
-              <textarea class="uk-textarea" id="BonusDescription" rows="5"
-                placeholder="Dogs can seem larger than life, and some artists reflect that in large sculpture."></textarea>
-            </div>
-            <div class="uk-width-1-1@s">
-              <label class="uk-form-label" for="BonusRequirements">Bonus Requirements</label>
-              <textarea class="uk-textarea" id="BonusRequirements" rows="5"
-                placeholder="Take a photo of your motorcycle near a large statue of a dog. The statue must be at least as big as your motorcycle. Advertising statues count, as well as artistic pieces."></textarea>
-            </div>
-            <div class="uk-width-1-6@s">
-              <label class="uk-form-label" for="Value">Bonus Value</label>
-              <input class="uk-input" id="Value" type="text" placeholder="1500">
-            </div>
-            <div class="uk-width-1-6@s">
-              <label class="uk-form-label" for="maxAllowed">Max Allowed</label>
-              <input class="uk-input" id="maxAllowed" type="text" placeholder="1">
-            </div>
-            <div class="uk-width-1-2@s">
-              &nbsp;
-            </div>
-            <div class="uk-width-1-6@s">
-              <label class="uk-form-label" for="saveBonusButton">&nbsp;</label>
-              <button type="button" id="saveBonusButton" class="uk-button uk-button-default">Save Bonus</button>
-            </div>
-          </form>
-          <h4>Bonus List</h4>
-          <table class="uk-table uk-table-striped uk-table-small">
-            <thead>
-                <tr>
+          <ul uk-tab>
+            <li><a href="#">Bonus Admin</a></li>
+            <li><a href="#">Rider Admin</a></li>
+          </ul>
+
+          <ul class="uk-switcher uk-margin">
+            <li>
+              <h4>Add Bonus</h4>
+              <form class="uk-grid-small uk-form-stacked" uk-grid>
+                <div class="uk-width-1-5@s">
+                  <label class="uk-form-label" for="BonusCode">Bonus Code</label>
+                  <input class="uk-input" id="BonusCode" type="text" placeholder="BIGD">
+                </div>
+                <div class="uk-width-4-5@s">
+                  <label class="uk-form-label" for="BonusName">Bonus Name</label>
+                  <input class="uk-input" id="BonusName" type="text" placeholder="Big Dog">
+                </div>
+                <div class="uk-width-1-1@s">
+                  <label class="uk-form-label" for="BonusDescription">Bonus Description</label>
+                  <textarea class="uk-textarea" id="BonusDescription" rows="5"
+                    placeholder="Dogs can seem larger than life, and some artists reflect that in large sculpture."></textarea>
+                </div>
+                <div class="uk-width-1-1@s">
+                  <label class="uk-form-label" for="BonusRequirements">Bonus Requirements</label>
+                  <textarea class="uk-textarea" id="BonusRequirements" rows="5"
+                    placeholder="Take a photo of your motorcycle near a large statue of a dog. The statue must be at least as big as your motorcycle. Advertising statues count, as well as artistic pieces."></textarea>
+                </div>
+                <div class="uk-width-1-6@s">
+                  <label class="uk-form-label" for="Value">Bonus Value</label>
+                  <input class="uk-input" id="Value" type="text" placeholder="1500">
+                </div>
+                <div class="uk-width-1-6@s">
+                  <label class="uk-form-label" for="maxAllowed">Max Allowed</label>
+                  <input class="uk-input" id="maxAllowed" type="text" placeholder="1">
+                </div>
+                <div class="uk-width-1-2@s">
+                  &nbsp;
+                </div>
+                <div class="uk-width-1-6@s">
+                  <label class="uk-form-label" for="saveBonusButton">&nbsp;</label>
+                  <button type="button" id="saveBonusButton" class="uk-button uk-button-default">Save Bonus</button>
+                </div>
+              </form>
+              <h4>Bonus List</h4>
+              <table class="uk-table uk-table-striped uk-table-small">
+                <thead>
+                  <tr>
                     <th>Bonus Code</th>
                     <th>Bonus Name</th>
                     <th>Bonus Requirements</th>
                     <th>Value</th>
                     <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-              <% bonuses.forEach(function(bonus) { %>
-                <tr>
-                  <td><%= bonus.BonusCode %></td>
-                  <td><%= bonus.BonusName %></td>
-                  <td><%= bonus.BonusRequirements %></td>
-                  <td><%= bonus.Value %></td>
-                  <td><span class="deleteBonusButton" data-id="<%- bonus.id %>"><i class="far fa-trash-alt"></i></span></td>
-              </tr>
-              <% }) %>
-            </tbody>
-        </table>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% bonuses.forEach(function(bonus) { %>
+                    <tr>
+                      <td>
+                        <%= bonus.BonusCode %>
+                      </td>
+                      <td>
+                        <%= bonus.BonusName %>
+                      </td>
+                      <td>
+                        <%= bonus.BonusRequirements %>
+                      </td>
+                      <td>
+                        <%= bonus.Value %>
+                      </td>
+                      <td><span class="deleteBonusButton" data-id="<%- bonus.id %>"><i class="far fa-trash-alt"></i></span>
+                      </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+              </table>
+            </li>
+            <li>
+              Rider Admin section goes here
+            </li>
+          </ul>
         </div>
       </main>
       <footer>

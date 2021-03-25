@@ -1,6 +1,4 @@
-$(document).ready(() => {
-  console.log("Document ready");
-  
+$(document).ready(() => {  
   // Handle Add Bonus Button
   $("#saveBonusButton").on("click", function() {
     var newBonus = {

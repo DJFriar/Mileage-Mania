@@ -20,9 +20,18 @@ module.exports = function (app) {
   });
 
   app.get("/profile", isAuthenticated, (req, res) => {
-    // Get profile info
-    db.User.findAll({raw: true}).then(data => {
-      res.render("pages/profile", {users: data});
+    console.log(req.user);
+    // Get all bikes
+    db.Bike.findAll({
+      raw: true,
+      where: {
+        user_id: req.user.id
+      }
+    }).then(data => {
+      res.render("pages/profile", {
+        user: req.user,
+        bikes: data
+      });
     });
   });
 
@@ -46,7 +55,7 @@ module.exports = function (app) {
     res.render("pages/history");
   });
 
-  app.get("/submit", function (req, res) {
+  app.get("/submit", isAuthenticated, function (req, res) {
     res.render("pages/submit");
   });
 
@@ -60,7 +69,7 @@ module.exports = function (app) {
 
   app.get("/admin", function (req, res) {
     // Get all bonuses
-    db.bonusItem.findAll({raw: true}).then(data => {
+    db.bonusItem.findAll({ raw: true }).then(data => {
       res.render("pages/admin", {
         bonuses: data
       });

@@ -35,13 +35,14 @@ const resizeImages = async (req, res, next) => {
   await Promise.all(
     req.files.map(async file => {
       const riderNumber = "F16"; // TODO: Replace with proper logic
-      const bonusID = "BFFL"; // TODO: Replace with proper logic
+      const bonusID = "FREE"; // TODO: Replace with proper logic
       const currentTimestamp = moment().unix(); // Appends the unix timestamp to the file to avoid overwriting.
       const newFilename = `${riderNumber}-${bonusID}-${currentTimestamp}.jpg`;
 
       await sharp(file.buffer)
-        .resize(800, 600)
-        .position("left top")
+        .resize(1024, 768, {
+          position: 'left top'
+        })
         .toFormat("jpeg")
         .jpeg({ quality: 90 })
         .toFile(`static/uploads/${newFilename}`);
@@ -52,7 +53,7 @@ const resizeImages = async (req, res, next) => {
   next();
 };
 
-const getResult = async (req, res) => {
+const getResult = async (req, res, next) => {
   if (req.body.images.length <= 0) {
     return res.send(`You must select at least 1 image.`);
   }
@@ -61,7 +62,7 @@ const getResult = async (req, res) => {
     .map(image => "" + image + "")
     .join("");
 
-  res.render("pages/submit");
+  next();
 };
 
 module.exports = {

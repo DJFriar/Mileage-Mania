@@ -71,20 +71,38 @@ module.exports = function (app) {
     });
   });
 
-// Create a Bike
-app.post("/api/bike", isAuthenticated, (req, res) => {
-  db.Bike.create({
-    user_id: req.user.id, // TODO: Make this use the id of the logged in user.
-    BikeName: req.body.BikeName,
-    Year: req.body.Year,
-    Make: req.body.Make,
-    Model: req.body.Model,
-  }).then(() => {
-    res.status(202).send();
+  // Create a Bike
+  app.post("/api/bike", isAuthenticated, (req, res) => {
+    db.Bike.create({
+      user_id: req.user.id,
+      BikeName: req.body.BikeName,
+      Year: req.body.Year,
+      Make: req.body.Make,
+      Model: req.body.Model,
+    }).then(() => {
+      res.status(202).send();
+    });
   });
-});
 
-
+  // Accept the image the user uploaded, resize it and save it.
+  app.post('/image-upload',
+    uploadSubmission.uploadImages,
+    uploadSubmission.resizeImages,
+    uploadSubmission.getResult,
+    function (req, res) {
+      // TODO: write DB save
+      db.mileageLog.create({
+        bike_id: req.body.bike_id,
+        user_id: req.user.id,
+        RallyYear: 2021,
+        ReportedMileage: req.body.ReportedMileage,
+        imageName: req.body.images[0],
+        iStatus: 0 // 0 = Pending Approval
+      })
+      console.debug(req.body);
+      res.redirect("/submit");
+    }
+  );
 
 
   // Get all users
@@ -107,7 +125,7 @@ app.post("/api/bike", isAuthenticated, (req, res) => {
 
 
 
-  
+
 
   // Route for logging user out
   app.get("/logout", (req, res) => {
@@ -130,13 +148,11 @@ app.post("/api/bike", isAuthenticated, (req, res) => {
     }
   });
 
-  // Accept the image the user uploaded, resize it and save it.
-  app.post('/image-upload', uploadSubmission.uploadImages, uploadSubmission.resizeImages, uploadSubmission.getResult, function (req, res) {
-  });
+
 
   // Get all bonuses
-  app.get("/api/bonus", function(req, res) {
-    db.Post.all(function(data) {
+  app.get("/api/bonus", function (req, res) {
+    db.Post.all(function (data) {
       const dataObject = {
         bonuses: data
       };

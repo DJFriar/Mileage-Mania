@@ -2,22 +2,19 @@
 // https://bezkoder.com/node-js-upload-resize-multiple-images/
 //
 
-$(document).ready(function() {
-  let imagesPreview = function(input, placeToInsertImagePreview) {
+$(document).ready(function () {
+  let imagesPreview = function (input, placeToInsertImagePreview) {
     if (input.files) {
-      let filesAmount = input.files.length;
-      for (i = 0; i < filesAmount; i++) {
-        let reader = new FileReader();
-        reader.onload = function(event) {
-          $($.parseHTML("<img>"))
-            .attr("src", event.target.result)
-            .appendTo(placeToInsertImagePreview);
-        };
-        reader.readAsDataURL(input.files[i]);
-      }
+      let reader = new FileReader();
+      reader.onload = function (event) {
+        $($.parseHTML("<img>"))
+          .attr("src", event.target.result)
+          .appendTo(placeToInsertImagePreview);
+      };
+      reader.readAsDataURL(input.files[0]);
     }
   };
-  $("#input-images").on("change", function() {
+  $("#input-images").on("change", function () {
     imagesPreview(this, "div.preview-images");
   });
 });

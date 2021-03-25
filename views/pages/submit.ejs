@@ -8,12 +8,13 @@
       <main>
         <h1>2021 Rally Submission Tool</h1>
         <div class="uk-container">
-          <ul uk-tab>
+          <ul class="uk-flex-center" uk-tab>
             <li><a href="#">Submit Mileage</a></li>
             <li><a href="#">Submit Grand Tour</a></li>
           </ul>
 
           <ul class="uk-switcher uk-margin">
+            <!-- Mileage Submissions -->
             <li>
               <div class="uk-grid-small uk-grid" uk-grid>
                 <form class="mt-4 image-submission" action="/image-upload" method="POST" enctype="multipart/form-data">
@@ -24,12 +25,12 @@
                   <input type="file" name="image-to-submit" id="input-images" class="form-control-file border" />
                   <button type="submit" class="uk-button uk-button-primary">Submit</button>
                 </form>
-                <div class="uk-child-width-2-3@m">
+                <div class="uk-child-width-1-2@s">
                   <div class="preview-images"></div>
                   <!-- <img class="uk-align-center mm-img-border" data-src="/images/MMPlaceHolder.png" width="434"
                     height="370" alt="Click Here to Upload" uk-img> -->
                 </div>
-                <div class="uk-child-width-1-3@m">
+                <div class="uk-child-width-1-2@s">
                   <!-- <p>
                     Submit a photo of your odometer and a dated business receipt. You do not have to include your rally flag.
                   </p> -->
@@ -47,13 +48,18 @@
                 </div>
               </div>
             </li>
+            <!-- Grand Tour Submission -->
             <li>
               <div class="uk-grid-small uk-grid" uk-grid>
-                <div class="uk-child-width-2-3@m">
-                  <img class="uk-align-center mm-img-border" data-src="/images/MMPlaceHolder.png" width="434"
-                    height="370" alt="CLick Here to Upload" uk-img>
-                </div>
-                <div class="uk-child-width-expand@m">
+                <form class="mt-4 image-submission" action="/image-upload" method="POST" enctype="multipart/form-data">
+                  <label for="input-images">
+                    <img class="uk-align-center mm-img-border" data-src="/images/MMPlaceHolder.png" width="434"
+                    height="370" alt="Click Here to Upload" uk-img>
+                  </label>
+                  <input type="file" name="image-to-submit" id="input-images" class="form-control-file border" />
+                  <button type="submit" class="uk-button uk-button-primary">Submit</button>
+                </form>
+                <div class="uk-child-width-1-2@s">
                   <!-- <p>
                     Submit a photo of your odometer and a dated business receipt. You do not have to include your rally flag.
                   </p> -->
@@ -76,7 +82,7 @@
               </div>
             </li>
           </ul>
-
+          <!-- Historical Submissions (Lower section) -->
           <div class="uk-margin-top">
             <h4>Previous Submissions</h4>
           </div>

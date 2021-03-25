@@ -2,88 +2,97 @@
   <%- include('../partials/head'); %>
 </head>
 
-<body>
+<body id="profilePage">
   <%- include('../partials/topnav'); %>
-  <div class="uk-container" uk-height-viewport="expand: true">
-    <main>
-      <div class="uk-container-small uk-margin-auto">
-        <div class="uk-width-1-5">
-          IMG
-        </div>
-        <div class="uk-width-4-5">
-          <p><%= user.FirstName %>&nbsp;<%= user.LastName %><br />
-            <%= user.UserName %>&nbsp;<%= user.Email %></p>
-        </div>
-        <div uk-grid>
-          <div class="uk-width-1-2@s">
-            <h5>My Stats</h5>
-
+    <div class="uk-container" uk-height-viewport="expand: true">
+      <main>
+        <div class="uk-container-small uk-margin-auto">
+          <div class="uk-width-1-5">
+            IMG
           </div>
-          <div class="uk-width-1-2@s">
-            <h5>My Garage</h5>
-            <form class="uk-grid-small uk-form-stacked" uk-grid>
-              <div class="uk-width-1-1@s">
-                <label class="uk-form-label" for="BikeName">Bike Name</label>
-                <input class="uk-input" id="BikeName" rows="5"
-                  placeholder="Mr. Ed"></input>
+          <div class="uk-width-4-5">
+            <p>
+              <%= user.FirstName %>&nbsp;<%= user.LastName %><br />
+                  <%= user.UserName %>&nbsp;<%= user.Email %>
+            </p>
+          </div>
+          <div uk-grid>
+            <div class="uk-width-1-2@s">
+              <h5>My Stats</h5>
+              <div>
+                Total Mileage: XX,XXX
               </div>
-              <div class="uk-width-1-5@s">
-                <label class="uk-form-label" for="BikeYear">Year</label>
-                <input class="uk-input" id="BikeYear" type="text" placeholder="2038">
+              <div class="uk-grid-small uk-child-width-1-4@s uk-flex-center uk-text-center" uk-grid>
+                <% bonuses.forEach(function(bonus) { %>
+                  <div>
+                    <div class="uk-card uk-card-default uk-card-body"><%= bonus.BonusCode %></div>
+                  </div>
+                <% }) %>
               </div>
-              <div class="uk-width-4-5@s">
-                <label class="uk-form-label" for="BikeMake">Make</label>
-                <input class="uk-input" id="BikeMake" type="text" placeholder="Honda">
-              </div>
-              <div class="uk-width-1-1@s">
-                <label class="uk-form-label" for="BikeModel">Model</label>
-                <input class="uk-input" id="BikeModel" rows="5"
-                  placeholder="Gold Wing"></input>
-              </div>
-              <div class="uk-width-2-3@s">
-                &nbsp;
-              </div>
-              <div class="uk-width-1-3@s">
-                <button type="button" id="addBikeButton" class="uk-button uk-button-default">Add Bike</button>
-              </div>
-            </form>
-            <table class="uk-table uk-table-striped uk-table-small">
-              <thead>
-                <tr>
-                  <th>Bike Name</th>
-                  <th>Year</th>
-                  <th>Make</th>
-                  <th>Model</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% bikes.forEach(function(Bike) { %>
+            </div>
+            <div class="uk-width-1-2@s">
+              <h5>My Garage</h5>
+              <table class="uk-table uk-table-striped uk-table-small">
+                <thead>
                   <tr>
-                    <td>
-                      <%= Bike.BikeName %>
-                    </td>
-                    <td>
-                      <%= Bike.Year %>
-                    </td>
-                    <td>
-                      <%= Bike.Make %>
-                    </td>
-                    <td>
-                      <%= Bike.Model %>
-                    </td>
+                    <th>Bike Name</th>
+                    <th>Year</th>
+                    <th>Make</th>
+                    <th>Model</th>
                   </tr>
-                  <% }) %>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  <% bikes.forEach(function(Bike) { %>
+                    <tr>
+                      <td>
+                        <%= Bike.BikeName %>
+                      </td>
+                      <td>
+                        <%= Bike.Year %>
+                      </td>
+                      <td>
+                        <%= Bike.Make %>
+                      </td>
+                      <td>
+                        <%= Bike.Model %>
+                      </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+              </table>
+              <form class="uk-grid-small uk-form-stacked" uk-grid>
+                <div class="uk-width-1-1@s">
+                  <label class="uk-form-label" for="BikeName">Bike Name</label>
+                  <input class="uk-input" id="BikeName" rows="5" placeholder="Mr. Ed"></input>
+                </div>
+                <div class="uk-width-1-5@s">
+                  <label class="uk-form-label" for="BikeYear">Year</label>
+                  <input class="uk-input" id="BikeYear" type="text" placeholder="2038">
+                </div>
+                <div class="uk-width-4-5@s">
+                  <label class="uk-form-label" for="BikeMake">Make</label>
+                  <input class="uk-input" id="BikeMake" type="text" placeholder="Honda">
+                </div>
+                <div class="uk-width-1-1@s">
+                  <label class="uk-form-label" for="BikeModel">Model</label>
+                  <input class="uk-input" id="BikeModel" rows="5" placeholder="Gold Wing"></input>
+                </div>
+                <div class="uk-width-2-3@s">
+                  &nbsp;
+                </div>
+                <div class="uk-width-1-3@s">
+                  <button type="button" id="addBikeButton" class="uk-button uk-button-default">Add Bike</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
     <footer>
       <%- include('../partials/footer'); %>
     </footer>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="/js/profile.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="/js/profile.js"></script>
 </body>

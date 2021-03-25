@@ -1,5 +1,6 @@
 var path = require("path");
 const db = require("../models");
+const q = require("../private/queries");
 // Requiring our custom middleware for checking if a user is logged in
 const isAuthenticated = require("../config/isAuthenticated");
 
@@ -19,19 +20,16 @@ module.exports = function (app) {
     res.render("pages/signup");
   });
 
-  app.get("/profile", isAuthenticated, (req, res) => {
+  app.get("/profile", isAuthenticated, async(req, res) => {
     console.log(req.user);
-    // Get all bikes belonging to the logged in user
-    db.Bike.findAll({
-      raw: true,
-      where: {
-        user_id: req.user.id
-      }
-    }).then(data => {
-      res.render("pages/profile", {
-        user: req.user,
-        bikes: data
-      });
+    var rider = req.user.id;
+    var qBonuses = await q.queryAllBonusItems();
+    var qBikes = await q.queryAllBikes(rider);
+    
+    res.render("pages/profile", {
+      user: req.user,
+      bonuses: qBonuses,
+      bikes: qBikes
     });
   });
 
@@ -55,22 +53,15 @@ module.exports = function (app) {
     res.render("pages/history");
   });
 
-  app.get("/submit", isAuthenticated, function (req, res) {
-    // Get all bonuses
-    db.bonusItem.findAll({ raw: true }).then(bonusData => {
-      // Get all bikes belonging to the logged in user
-      db.Bike.findAll({ 
-        raw: true,
-        where: {
-          user_id: req.user.id
-        }
-      }).then(bikeData => {
-        res.render("pages/submit", {
-          user: req.user,
-          bonuses: bonusData,
-          bikes: bikeData
-        });
-      });
+  app.get("/submit", isAuthenticated, async(req, res) => {
+    var rider = req.user.id;
+    var qBonuses = await q.queryAllBonusItems();
+    var qBikes = await q.queryAllBikes(rider);
+
+    res.render("pages/submit", {
+      user: req.user,
+      bonuses: qBonuses,
+      bikes: qBikes
     });
   });
 
@@ -82,16 +73,13 @@ module.exports = function (app) {
     res.render("pages/stats");
   });
 
-  app.get("/admin", function (req, res) {
-    // Get all bonuses
-    db.bonusItem.findAll({ raw: true }).then(bonusData => {
-      // Get all riders
-      db.User.findAll({ raw: true }).then(riderData => {
-        res.render("pages/admin", {
-          bonuses: bonusData,
-          riders: riderData
-        });
-      });
+  app.get("/admin", async (req, res) => {
+    var qBonuses = await q.queryAllBonusItems();
+    var qRiders = await q.queryAllRiders();
+
+    res.render("pages/admin", {
+      bonuses: qBonuses,
+      riders: qRiders
     });
   });
 

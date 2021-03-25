@@ -213,3 +213,7 @@ form {
 #signupPage h2 {
   margin-bottom: 20px;
 }
+
+.hide-me {
+  display: none;
+}

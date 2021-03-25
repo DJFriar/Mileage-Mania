@@ -21,7 +21,7 @@ module.exports = function (app) {
 
   app.get("/profile", isAuthenticated, (req, res) => {
     console.log(req.user);
-    // Get all bikes
+    // Get all bikes belonging to the logged in user
     db.Bike.findAll({
       raw: true,
       where: {
@@ -56,7 +56,22 @@ module.exports = function (app) {
   });
 
   app.get("/submit", isAuthenticated, function (req, res) {
-    res.render("pages/submit");
+    // Get all bonuses
+    db.bonusItem.findAll({ raw: true }).then(bonusData => {
+      // Get all bikes belonging to the logged in user
+      db.Bike.findAll({ 
+        raw: true,
+        where: {
+          user_id: req.user.id
+        }
+      }).then(bikeData => {
+        res.render("pages/submit", {
+          user: req.user,
+          bonuses: bonusData,
+          bikes: bikeData
+        });
+      });
+    });
   });
 
   app.get("/review", function (req, res) {
@@ -69,9 +84,13 @@ module.exports = function (app) {
 
   app.get("/admin", function (req, res) {
     // Get all bonuses
-    db.bonusItem.findAll({ raw: true }).then(data => {
-      res.render("pages/admin", {
-        bonuses: data
+    db.bonusItem.findAll({ raw: true }).then(bonusData => {
+      // Get all riders
+      db.User.findAll({ raw: true }).then(riderData => {
+        res.render("pages/admin", {
+          bonuses: bonusData,
+          riders: riderData
+        });
       });
     });
   });

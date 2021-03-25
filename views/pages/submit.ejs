@@ -34,6 +34,12 @@
                     Submit a photo of your odometer and a dated business receipt. You do not have to include your rally flag.
                   </p> -->
                   <form>
+                    <label class="uk-form-label">Bike Ridden:</label>
+                    <select class="uk-select">
+                      <% bikes.forEach(function(Bike) { %> 
+                      <option><%= Bike.BikeName %></option>
+                    <% }) %>
+                    </select>
                     <label class="uk-form-label">Odometer:</label>
                     <input class="uk-input" type="text">
                   </form>
@@ -52,12 +58,17 @@
                     Submit a photo of your odometer and a dated business receipt. You do not have to include your rally flag.
                   </p> -->
                   <form>
+                    <label class="uk-form-label">Bike Ridden:</label>
+                    <select class="uk-select">
+                      <% bikes.forEach(function(Bike) { %> 
+                      <option><%= Bike.BikeName %></option>
+                    <% }) %>
+                    </select>
                     <label class="uk-form-label">Choose a Bonus:</label>
                     <select class="uk-select">
-                      <option>BFFL</option>
-                      <option>BIGD</option>
-                      <option>BONE</option>
-                      <option>FREE</option>
+                      <% bonuses.forEach(function(bonus) { %> 
+                        <option><%= bonus.BonusCode %></option>
+                      <% }) %>
                     </select>
                   </form>
                   <button class="uk-button uk-button-primary">Submit</button>

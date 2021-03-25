@@ -7,10 +7,13 @@
   <div class="uk-container" uk-height-viewport="expand: true">
     <main>
       <div class="uk-container-small uk-margin-auto">
-        <p>Full width profile content goes here</p>
-        <p><%= user.FirstName %>&nbsp;<%= user.LastName %></p>
-        <p><%= user.UserName %>&nbsp;<%= user.Email %></p>
-
+        <div class="uk-width-1-5">
+          IMG
+        </div>
+        <div class="uk-width-4-5">
+          <p><%= user.FirstName %>&nbsp;<%= user.LastName %><br />
+            <%= user.UserName %>&nbsp;<%= user.Email %></p>
+        </div>
         <div uk-grid>
           <div class="uk-width-1-2@s">
             <h5>My Stats</h5>

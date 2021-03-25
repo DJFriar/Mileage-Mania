@@ -85,7 +85,34 @@
               </table>
             </li>
             <li>
-              Rider Admin section goes here
+              <h4>Rider List</h4>
+              <table class="uk-table uk-table-striped uk-table-small">
+                <thead>
+                  <tr>
+                    <th>Full Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Flag Number</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% riders.forEach(function(User) { %>
+                    <tr>
+                      <td>
+                        <%= User.FirstName %>&nbsp;<%= User.LastName %>
+                      </td>
+                      <td>
+                        <%= User.UserName %>
+                      </td>
+                      <td>
+                        <%= User.Email %>
+                      </td>
+                      <td>
+                        17
+                    </tr>
+                    <% }) %>
+                </tbody>
+              </table>
             </li>
           </ul>
         </div>

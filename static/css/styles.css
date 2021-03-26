@@ -217,3 +217,12 @@ form {
 .hide-me {
   display: none !important;
 }
+
+.uk-navbar-container:not(.uk-navbar-transparent) {
+  background: #fff;
+  padding: 0 50px;
+}
+
+.uk-navbar-nav > li > a {
+  font-size: 1.1rem;
+}

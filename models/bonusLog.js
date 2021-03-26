@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    imagePath: {
+    imageName: {
       type: DataTypes.STRING
     },
     iStatus: {

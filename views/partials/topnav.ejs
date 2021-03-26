@@ -13,9 +13,16 @@
           <a href="#">Rally</a>
           <div class="uk-navbar-dropdown">
             <ul class="uk-nav uk-navbar-dropdown-nav">
-              <li><a href="/admin">Admin</a></li>
               <li><a href="/submit">Submit</a></li>
               <li><a href="/stats">Stats</a></li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <a href="#">Admin</a>
+          <div class="uk-navbar-dropdown">
+            <ul class="uk-nav uk-navbar-dropdown-nav">
+              <li><a href="/admin">Admin</a></li>
               <li><a href="/review">Review</a></li>
             </ul>
           </div>
@@ -33,7 +40,8 @@
           </div>
         </li>
         <li><a href="/profile" class="hidden-link">Profile</a></li>
-        <li><a href="/login" class="hidden-link">Login&nbsp;<span class="fal fa-sign-in fa-lg"></span></a></li>
+        <li id="topnavLogin"><a href="/login" class="hidden-link">Login&nbsp;<span class="fal fa-sign-in fa-lg"></span></a></li>
+        <li id="topnavLogout" class="hide-me"><a href="/logout" class="hidden-link">Logout&nbsp;<span class="fal fa-sign-out fa-lg"></span></a></li>
       </ul>
     </div>
   </nav>

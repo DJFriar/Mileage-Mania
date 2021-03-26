@@ -34,10 +34,10 @@ const resizeImages = async (req, res, next) => {
   req.body.images = [];
   await Promise.all(
     req.files.map(async file => {
-      const riderNumber = "F16"; // TODO: Replace with proper logic
+      const riderFlagNumber = req.user.FlagNumber;
       const bonusID = "FREE"; // TODO: Replace with proper logic
       const currentTimestamp = moment().unix(); // Appends the unix timestamp to the file to avoid overwriting.
-      const newFilename = `${riderNumber}-${bonusID}-${currentTimestamp}.jpg`;
+      const newFilename = `${riderFlagNumber}-${bonusID}-${currentTimestamp}.jpg`;
 
       await sharp(file.buffer)
         .resize(1024, 768, {

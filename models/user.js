@@ -32,6 +32,9 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: true
     },
+    FlagNumber: {
+      type: DataTypes.INTEGER,
+    },
     isAdmin: {
       type: DataTypes.BOOLEAN,
       defaultValue: 0

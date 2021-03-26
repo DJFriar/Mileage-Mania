@@ -63,7 +63,7 @@ module.exports = function (app) {
   // If the user has valid login credentials, send them to the profile page.
   // Otherwise the user will be sent an error
   app.post("/api/login", passport.authenticate("local"), (req, res) => {
-    console.log("User ID = " + req.user.id);
+    console.log(req.user);
     // Sending back a password, even a hashed password, isn't a good idea
     res.json({
       email: req.user.Email,

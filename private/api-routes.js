@@ -85,21 +85,33 @@ module.exports = function (app) {
   });
 
   // Accept the image the user uploaded, resize it and save it.
-  app.post('/image-upload',
+  app.post('/submit-bonus',
     uploadSubmission.uploadImages,
     uploadSubmission.resizeImages,
     uploadSubmission.getResult,
     function (req, res) {
+      console.log(req.body);
       // TODO: write DB save
-      db.mileageLog.create({
-        bike_id: req.body.bike_id,
-        user_id: req.user.id,
-        RallyYear: 2021,
-        ReportedMileage: req.body.ReportedMileage,
-        imageName: req.body.images[0],
-        iStatus: 0 // 0 = Pending Approval
-      })
-      console.debug(req.body);
+      if (req.body.BonusType === "Odo") {
+        db.mileageLog.create({
+          bike_id: req.body.bike_id,
+          user_id: req.user.id,
+          RallyYear: 2021,
+          ReportedMileage: req.body.ReportedMileage,
+          imageName: req.body.images[0],
+          iStatus: 0 // 0 = Pending Approval
+        })
+      }
+      if (req.body.BonusType === "GT") {
+        db.bonusLog.create({
+          bike_id: req.body.bike_id,
+          user_id: req.user.id,
+          bonus_id: req.body.bonus_id,
+          ReportedMileage: req.body.ReportedMileage,
+          imagePath: req.body.images[0],
+          iStatus: 0 // 0 = Pending Approval
+        })
+      }
       res.redirect("/submit");
     }
   );

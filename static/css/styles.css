@@ -215,5 +215,5 @@ form {
 }
 
 .hide-me {
-  display: none;
+  display: none !important;
 }

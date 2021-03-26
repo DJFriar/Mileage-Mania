@@ -8,15 +8,7 @@
       <main>
         <h1>2021 Rally Submission Tool</h1>
         <div class="uk-container">
-          <ul class="uk-flex-center" uk-tab>
-            <li><a href="#">Submit Mileage</a></li>
-            <li><a href="#">Submit Grand Tour</a></li>
-          </ul>
-
-          <ul class="uk-switcher uk-margin">
-            <!-- Mileage Submissions -->
-            <li>
-              <form id="saveOdoSubmissionForm" class="mt-4 image-submission uk-form-stacked" action="/image-upload" method="POST"
+              <form id="saveOdoSubmissionForm" class="mt-4 image-submission uk-form-stacked" action="/submit-bonus" method="POST"
                 enctype="multipart/form-data">
                 <div class="uk-grid-small uk-grid" uk-grid>
                   <div class="uk-width-1-2@s">
@@ -24,67 +16,39 @@
                       <img class="uk-align-center mm-img-border mileSubBtnImg" data-src="/images/MMPlaceHolder.png"
                         width="434" height="370" alt="Click Here to Upload" uk-img>
                     </label>
-                    <input type="file" name="image-to-submit" id="input-odoImage" class="form-control-file border" />
+                    <input type="file" name="image-to-submit" id="input-odoImage" class="form-control-file border hide-me" />
                   </div>
                   <div class="uk-width-1-2@s">
-                    <p>
+                    <span class="uk-form-label">Bonus Type:</span>
+                    <label><input type="radio" class="uk-radio" Name="BonusType" id="Odo" value="Odo"> Odometer</label>
+                    <label><input type="radio" class="uk-radio" Name="BonusType" id="GT" value="GT"> Grand Tour</label>
+                    <p class="odoField hide-me">
                       Submit a photo of your odometer and a dated business receipt. You do not have to include your
                       rally flag.
                     </p>
-                    <label class="uk-form-label">Bike Ridden:</label>
-                    <select name="bike_id" class="uk-select">
+                    <label class="uk-form-label bonusField hide-me">Bike Ridden:</label>
+                    <select name="bike_id" class="uk-select bonusField hide-me">
                       <% bikes.forEach(function(Bike) { %>
                         <option value="<%=Bike.id %>">
                           <%= Bike.BikeName %>
                         </option>
                         <% }) %>
                     </select>
-                    <label class="uk-form-label">Odometer:</label>
-                    <input name="ReportedMileage" class="uk-input" type="text">
-                    <label class="uk-form-label" for="saveOdoSubmission">&nbsp;</label>
-                    <button class="uk-button uk-button-primary" id="saveOdoSubmission">Submit</button>
-                  </div>
-                </div>
-              </form>
-            </li>
-            <!-- Grand Tour Submission -->
-            <li>
-              <form class="mt-4 image-submission uk-form-stacked" action="/image-upload" method="POST" enctype="multipart/form-data">
-                <div class="uk-grid-small uk-grid" uk-grid>
-                  <div class="uk-width-1-2@s">
-                    <label for="input-gtImage" id="gtSubLabel">
-                      <img class="uk-align-center mm-img-border gtSubBtnImg" data-src="/images/MMPlaceHolder.png" width="434"
-                        height="370" alt="Click Here to Upload" uk-img>
-                    </label>
-                    <input type="file" name="image-to-submit" id="input-gtImage" class="form-control-file border" />
-                  </div>
-                  <div class="uk-width-1-2@s">
-                    <!-- <p>
-                    Submit a photo of your odometer and a dated business receipt. You do not have to include your rally flag.
-                  </p> -->
-                    <label class="uk-form-label">Bike Ridden:</label>
-                    <select class="uk-select">
-                      <% bikes.forEach(function(Bike) { %>
-                        <option>
-                          <%= Bike.BikeName %>
-                        </option>
-                        <% }) %>
-                    </select>
-                    <label class="uk-form-label">Choose a Bonus:</label>
-                    <select class="uk-select">
+                    <label class="uk-form-label gtField hide-me">Choose a Bonus:</label>
+                    <select name="bonus_id" class="uk-select gtField hide-me">
                       <% bonuses.forEach(function(bonus) { %>
-                        <option>
+                        <option value="<%=bonus.id %>">
                           <%= bonus.BonusCode %>
                         </option>
                         <% }) %>
                     </select>
-                    <label class="uk-form-label" for="saveGTSubmission">&nbsp;</label>
-                    <button class="uk-button uk-button-primary" id="saveGTSubmission">Submit</button>
+                    <label class="uk-form-label odoField hide-me">Odometer:</label>
+                    <input name="ReportedMileage" class="uk-input odoField hide-me" type="text">
+                    <label class="uk-form-label bonusField hide-me" for="saveSubmission">&nbsp;</label>
+                    <button class="uk-button uk-button-primary bonusField hide-me" id="saveSubmission">Submit</button>
                   </div>
                 </div>
               </form>
-            </li>
-          </ul>
           <!-- Historical Submissions (Lower section) -->
           <div class="uk-margin-top">
             <h4>Previous Submissions</h4>

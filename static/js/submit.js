@@ -12,7 +12,7 @@ $(document).ready(function () {
   $("#input-odoImage").on("change", function () {
     handleOdoPhoto(this, "label#mileSubLabel");
   });
-
+  
   let handleGTPhoto = function (input, placeToInsertImagePreview) {
     if (input.files) {
       let reader = new FileReader();
@@ -26,6 +26,22 @@ $(document).ready(function () {
   $("#input-gtImage").on("change", function () {
     handleGTPhoto(this, "label#gtSubLabel");
   });
+
+  $("#Odo").on("change",function(event) {
+    event.preventDefault();
+    console.log("Odo checked");
+    $(".odoField").removeClass("hide-me");
+    $(".gtField").addClass("hide-me");
+    $(".bonusField").removeClass("hide-me");
+  })
+
+  $("#GT").on("change",function(event) {
+    event.preventDefault();
+    console.log("GT checked");
+    $(".gtField").removeClass("hide-me");
+    $(".odoField").addClass("hide-me");
+    $(".bonusField").removeClass("hide-me");
+  })
 
   // $("#saveOdoSubmissionForm").on("submit",function(e){
   //   e.preventDefault();

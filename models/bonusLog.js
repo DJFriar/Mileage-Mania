@@ -1,26 +1,23 @@
 module.exports = function(sequelize, DataTypes) {
   const bonusLog = sequelize.define("bonusLog", {
-    rider_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
     bike_id: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    incExtraMile: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false
-    },
-    Status: {
+    user_id: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    // imageData: {
-    //   type: DataTypes.BLOB("long")
-    // }
+    bonus_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     imagePath: {
       type: DataTypes.STRING
+    },
+    iStatus: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   });
 

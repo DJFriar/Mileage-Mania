@@ -32,7 +32,7 @@ $(document).ready(() => {
       Password: password
     })
       .then(() => {
-        window.location.replace("/profile");
+        window.location.replace("/submit");
       })
       .catch(err => {
         console.log(err);

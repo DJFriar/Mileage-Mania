@@ -3,6 +3,7 @@ const db = require("../models");
 const q = require("../private/queries");
 // Requiring our custom middleware for checking if a user is logged in
 const isAuthenticated = require("../config/isAuthenticated");
+const isAdmin = require("../config/isAdmin");
 
 module.exports = function (app) {
   // ===============================================================================
@@ -65,15 +66,26 @@ module.exports = function (app) {
     });
   });
 
-  app.get("/review", function (req, res) {
-    res.render("pages/review");
+  app.get("/review", isAuthenticated, isAdmin, async(req, res) => {
+    var qPendingSubmissionCount = await q.queryPendingSubmissionCount();
+    var qPendingSubmissions = await q.queryPendingSubmissions();
+
+    res.render("pages/review", {
+      pendingBonusCount: qPendingSubmissionCount,
+      pendingBonuses: qPendingSubmissions
+    });
   });
 
-  app.get("/stats", function (req, res) {
-    res.render("pages/stats");
+  app.get("/stats", async(req, res) => {
+    var qPendingSubmissionCount = await q.queryPendingSubmissionCount();
+    console.log(qPendingSubmissionCount + " remaining submissions");
+    
+    res.render("pages/stats", {
+      pendingBonuses: qPendingSubmissionCount
+    });
   });
 
-  app.get("/admin", async (req, res) => {
+  app.get("/admin", isAuthenticated, isAdmin, async (req, res) => {
     var qBonuses = await q.queryAllBonusItems();
     var qRiders = await q.queryAllRiders();
 

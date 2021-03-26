@@ -90,8 +90,7 @@ module.exports = function (app) {
     uploadSubmission.resizeImages,
     uploadSubmission.getResult,
     function (req, res) {
-      console.log(req.body);
-      // TODO: write DB save
+      //Write data to the respective DB
       if (req.body.BonusType === "Odo") {
         db.mileageLog.create({
           bike_id: req.body.bike_id,
@@ -108,14 +107,13 @@ module.exports = function (app) {
           user_id: req.user.id,
           bonus_id: req.body.bonus_id,
           ReportedMileage: req.body.ReportedMileage,
-          imagePath: req.body.images[0],
+          imageName: req.body.images[0],
           iStatus: 0 // 0 = Pending Approval
         })
       }
       res.redirect("/submit");
     }
   );
-
 
   // Get all users
   app.get("/api/riders", function (req, res) {
@@ -134,10 +132,6 @@ module.exports = function (app) {
       res.json(dbPost);
     });
   });
-
-
-
-
 
   // Route for logging user out
   app.get("/logout", (req, res) => {
@@ -160,50 +154,4 @@ module.exports = function (app) {
     }
   });
 
-
-
-  // Get all bonuses
-  app.get("/api/bonus", function (req, res) {
-    db.Post.all(function (data) {
-      const dataObject = {
-        bonuses: data
-      };
-      console.log(dataObject);
-      res.render("index", dataObject);
-    });
-  });
-
-  app.put("/api/addWishlistPark/:parkid", (req, res) => {
-    const parkCode = req.params.parkid;
-    console.log("Adding " + parkCode + " to user wishlist");
-    db.WishlistPark.create({
-      userID: req.user.id,
-      parkID: parkCode
-    }).then(() => {
-      res.status(202).send();
-    });
-  });
-
-  app.put("/api/addVisitedPark/:parkid", (req, res) => {
-    const parkCode = req.params.parkid;
-    console.log("Adding " + parkCode + " to user visited list");
-    db.VisitedPark.create({
-      userID: req.user.id,
-      parkID: parkCode
-    }).then(() => {
-      res.status(202).send();
-    });
-  });
-
-  app.delete("/api/delVisitedPark/:parkid", (req, res) => {
-    const id = req.params.parkid;
-    console.log("Removing " + id + " from visited list");
-    db.VisitedPark.destroy({
-      where: {
-        id: id
-      }
-    }).then(() => {
-      res.status(202).send();
-    });
-  });
 };

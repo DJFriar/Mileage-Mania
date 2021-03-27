@@ -2,6 +2,19 @@ const db = require("../models");
 const { Op, QueryTypes } = require("sequelize");
 const { sequelize } = require("../models");
 
+module.exports.queryUserRights = async function queryUserRights(user) {
+  try {
+    var result = await db.user.findAll({
+      where: {
+        id: user
+      }
+    })
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
 module.exports.queryAllBonusItems = async function queryAllBonusItems(id = false) {
   try {
     if (id) {
@@ -141,10 +154,11 @@ module.exports.queryPendingBikeInfo = async function queryPendingBikeInfo(rider)
   }
 }
 
-module.exports.queryHandledSubmissions = async function queryHandledSubmissions() {
-  try {
-    var result = await sequelize.query("SELECT * FROM bonusLogs bl LEFT JOIN bonusItems bi ON bi.id = bl.bonus_id INNER JOIN users u ON u.id = bl.user_id WHERE bl.iStatus != 0 ORDER BY bl.updatedAt DESC LIMIT 4",
+module.exports.queryHandledSubmissions = async function queryHandledSubmissions(limit) {
+  try {   
+    var result = await sequelize.query("SELECT * FROM bonusLogs bl LEFT JOIN bonusItems bi ON bi.id = bl.bonus_id INNER JOIN users u ON u.id = bl.user_id WHERE bl.iStatus != 0 ORDER BY bl.updatedAt DESC LIMIT ?",
     {
+      replacements: [limit],
       type: QueryTypes.SELECT
     });
     return result;

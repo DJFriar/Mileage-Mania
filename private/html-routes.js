@@ -10,18 +10,24 @@ module.exports = function (app) {
   // HTML ROUTES
   // ===============================================================================
   app.get("/", function (req, res) {
-    res.render("pages/index");
+    var activeUser = false
+    if (req.user) { activeUser = true };
+    res.render("pages/index", {
+      activeUser
+    });
   });
 
   app.get("/login", function (req, res) {
-    res.render("pages/login");
+    res.render("pages/login", { activeUser: false });
   });
 
   app.get("/signup", function (req, res) {
-    res.render("pages/signup");
+    res.render("pages/signup", { activeUser: false });
   });
 
   app.get("/profile", isAuthenticated, async (req, res) => {
+    var activeUser = false
+    if (req.user) { activeUser = true };
     console.log(req.user);
     var rider = req.user.id;
     var qBonuses = await q.queryAllBonusItems();
@@ -31,6 +37,7 @@ module.exports = function (app) {
     console.log(qCompleted);
 
     res.render("pages/profile", {
+      activeUser,
       user: req.user,
       bonuses: qBonuses,
       bikes: qBikes,
@@ -38,32 +45,33 @@ module.exports = function (app) {
     });
   });
 
-  app.get("/2021", function (req, res) {
-    res.render("pages/2021");
+  app.get("/2021", isAuthenticated, function (req, res) {
+    var activeUser = false
+    if (req.user) { activeUser = true };
+    res.render("pages/2021", { activeUser });
   });
 
-  app.get("/2020", function (req, res) {
-    res.render("pages/2020");
+  app.get("/2020", isAuthenticated, function (req, res) {
   });
 
-  app.get("/contact", function (req, res) {
-    res.render("pages/contact");
+  app.get("/contact", isAuthenticated, function (req, res) {
   });
 
-  app.get("/covid1000", function (req, res) {
-    res.render("pages/covid1000");
+  app.get("/covid1000", isAuthenticated, function (req, res) {
   });
 
-  app.get("/history", function (req, res) {
-    res.render("pages/history");
+  app.get("/history", isAuthenticated, function (req, res) {
   });
 
   app.get("/submit", isAuthenticated, async (req, res) => {
+    var activeUser = false
+    if (req.user) { activeUser = true };
     var rider = req.user.id;
     var qBonuses = await q.queryAllBonusItems();
     var qBikes = await q.queryAllBikes(rider);
 
     res.render("pages/submit", {
+      activeUser,
       user: req.user,
       bonuses: qBonuses,
       bikes: qBikes
@@ -71,17 +79,27 @@ module.exports = function (app) {
   });
 
   app.get("/review", isAuthenticated, isAdmin, async (req, res) => {
+    var activeUser = false
+    if (req.user) { activeUser = true };
     var qPendingSubmissionCount = await q.queryPendingSubmissionCount();
-    var qHandledSubmissions = await q.queryHandledSubmissions();
-
+    var qHandledSubmissions = await q.queryHandledSubmissions(4);
+    var userStatus = 0;
+    if (req.user.isAdmin) { 
+      userStatus = 2;
+    } else if (req.user.id) {
+      userStatus = 1;
+    }
+    console.log("====================");
+    console.log(req.user);
     if (qPendingSubmissionCount > 0) {
       var qPendingSubmissions = await q.queryPendingSubmissions();
       var qPendingBonusDetail = await q.queryPendingBonusDetail(qPendingSubmissions[0].bonus_id);
       var qPendingRiderInfo = await q.queryPendingRiderInfo(qPendingSubmissions[0].user_id);
       var qPendingBikeInfo = await q.queryPendingBikeInfo(qPendingSubmissions[0].user_id);
-      console.log("====================");
-      console.log(qPendingBonusDetail);
+      // var qUserRights = await q.queryUserRights(req.user.id);
       res.render("pages/review", {
+        activeUser,
+        user: req.user,
         pendingBonusCount: qPendingSubmissionCount,
         pendingBonuses: qPendingSubmissions,
         pendingRiderInfo: qPendingRiderInfo,
@@ -91,33 +109,70 @@ module.exports = function (app) {
       });
     } else {
       res.render("pages/review", {
+        activeUser,
+        user: req.user,
         pendingBonusCount: qPendingSubmissionCount,
         handledSubmissions: qHandledSubmissions
       });
     }
   });
 
+  app.get("/live", async (req, res) => {
+    var activeUser = false
+    var qHandledSubmissions = await q.queryHandledSubmissions(1000);
+    if (req.user) { 
+      activeUser = true;
+      res.render("pages/livefeed", {
+        activeUser,
+        user: req.user,
+        handledSubmissions: qHandledSubmissions
+      });
+    } else {
+      res.render("pages/livefeed", {
+        activeUser,
+        handledSubmissions: qHandledSubmissions
+      });
+    };
+  })
+
   app.get("/stats", async (req, res) => {
+    var activeUser = false;
+    if (req.user) { activeUser = true };
     var qPendingSubmissionCount = await q.queryPendingSubmissionCount();
     console.log(qPendingSubmissionCount + " remaining submissions");
 
-    res.render("pages/stats", {
-      pendingBonuses: qPendingSubmissionCount
-    });
+    if(activeUser) {
+      res.render("pages/stats", {
+        activeUser,
+        user: req.user,
+        pendingBonuses: qPendingSubmissionCount
+      });
+    } else {
+      res.render("pages/stats", {
+        activeUser,
+        pendingBonuses: qPendingSubmissionCount
+      });
+    }
   });
 
   app.get("/admin", isAuthenticated, isAdmin, async (req, res) => {
+    var activeUser = false
+    if (req.user) { activeUser = true };
     var qBonuses = await q.queryAllBonusItems();
     var qRiders = await q.queryAllRiders();
 
     res.render("pages/admin", {
+      activeUser,
+      user: req.user,
       bonuses: qBonuses,
       riders: qRiders
     });
   });
 
   // If no matching route is found, return the 404 page
-  app.get("*", function (req, res) {
-    res.render("pages/404");
+  app.get("*", isAuthenticated, function (req, res) {
+    var activeUser = false
+    if (req.user) { activeUser = true };
+    res.render("pages/404", { activeUser });
   });
 };

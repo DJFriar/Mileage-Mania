@@ -3,7 +3,11 @@
 </head>
 
 <body>
-  <%- include('../partials/topnav'); %>
+  <% if(activeUser) { %>
+    <%- include('../partials/topnavUser'); %>
+  <% } else { %>
+    <%- include('../partials/topnav'); %>
+  <% } %>
     <div class="uk-container" uk-height-viewport="expand: true">
       <main>
         <h1>Rally Submission Reviewer</h1>
@@ -31,9 +35,9 @@
                   <div class="mm-card-badge-left mm-label mm-flag">
                     <%= submission.FlagNumber %>
                   </div>
-                  <% if(submission.iStatus===1) { %>
+                  <% if(submission.iStatus === 1) { %>
                     <div class="mm-card-badge-right uk-label uk-label-success">Approved</div>
-                  <% } else if(submission.iStatus===2) { %>
+                  <% } else if(submission.iStatus === 2) { %>
                     <div class="mm-card-badge-right uk-label uk-label-danger">Rejected</div>
                   <% } else {} %>
                   <div class="uk-card-body">

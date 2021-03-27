@@ -42,7 +42,7 @@ module.exports = function (app) {
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
   app.post("/api/signup", (req, res) => {
-    db.User.create({
+    db.user.create({
       FirstName: req.body.FirstName,
       LastName: req.body.LastName,
       UserName: req.body.UserName,
@@ -73,7 +73,7 @@ module.exports = function (app) {
 
   // Create a Bike
   app.post("/api/bike", isAuthenticated, (req, res) => {
-    db.Bike.create({
+    db.bike.create({
       user_id: req.user.id,
       BikeName: req.body.BikeName,
       Year: req.body.Year,
@@ -92,11 +92,11 @@ module.exports = function (app) {
     function (req, res) {
       //Write data to the respective DB
       if (req.body.BonusType === "Odo") {
-        db.mileageLog.create({
+        db.bonusLog.create({
           bike_id: req.body.bike_id,
           user_id: req.user.id,
-          RallyYear: 2021,
-          ReportedMileage: req.body.ReportedMileage,
+          bonus_id: null,
+          odoValue: req.body.ReportedMileage,
           imageName: req.body.images[0],
           iStatus: 0 // 0 = Pending Approval
         })
@@ -106,7 +106,7 @@ module.exports = function (app) {
           bike_id: req.body.bike_id,
           user_id: req.user.id,
           bonus_id: req.body.bonus_id,
-          ReportedMileage: req.body.ReportedMileage,
+          odoValue: null,
           imageName: req.body.images[0],
           iStatus: 0 // 0 = Pending Approval
         })
@@ -118,7 +118,7 @@ module.exports = function (app) {
   // Update submissions
   app.put('/handle-submission', function (req, res) {
     console.debug(req.body);
-    db.mileageLog.update({ iStatus: req.body.iStatus }, {
+    db.bonusLog.update({ iStatus: req.body.iStatus }, {
       where: {
         id: req.body.submissionID,
       }
@@ -128,7 +128,7 @@ module.exports = function (app) {
 
   // Get all bikes
   app.get("/api/bikes", function (req, res) {
-    db.Bike.findAll({}).then(function (dbPost) {
+    db.bike.findAll({}).then(function (dbPost) {
       res.json(dbPost);
     });
   });
@@ -158,5 +158,4 @@ module.exports = function (app) {
       });
     }
   });
-
 };

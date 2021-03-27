@@ -39,14 +39,14 @@ module.exports.queryAllBonusesWithStatus = async function queryAllBonusesWithSta
 module.exports.queryAllRiders = async function queryAllRiders(rider = false) {
   try {
     if (rider) {
-      var result = await db.User.findAll({
+      var result = await db.user.findAll({
         raw: true,
         where: {
           id: rider
         }
       })
     } else {
-      var result = await db.User.findAll({
+      var result = await db.user.findAll({
         raw: true,
       })
     }
@@ -59,14 +59,14 @@ module.exports.queryAllRiders = async function queryAllRiders(rider = false) {
 module.exports.queryAllBikes = async function queryAllBikes(rider = false) {
   try {
     if (rider) {
-      var result = await db.Bike.findAll({
+      var result = await db.bike.findAll({
         raw: true,
         where: {
           user_id: rider
         }
       })
     } else {
-      var result = await db.Bike.findAll({
+      var result = await db.bike.findAll({
         raw: true
       })
     }
@@ -78,21 +78,11 @@ module.exports.queryAllBikes = async function queryAllBikes(rider = false) {
 
 module.exports.queryPendingSubmissionCount = async function queryPendingSubmissionCount() {
   try {
-    var pendingBonuses = 0;
-    var bonusCount = await db.bonusLog.count({
+    var pendingBonuses = await db.bonusLog.count({
       where: {
         iStatus: 0
       }
     })
-    console.log(bonusCount + " pending bonus submissions found.");
-    pendingBonuses += bonusCount;
-    var odoCount = await db.mileageLog.count({
-      where: {
-        iStatus: 0
-      }
-    })
-    console.log(odoCount + " pending mileage submissions found.");
-    pendingBonuses += odoCount;
     return pendingBonuses;
   } catch (err) {
     throw err;
@@ -101,7 +91,7 @@ module.exports.queryPendingSubmissionCount = async function queryPendingSubmissi
 
 module.exports.queryPendingSubmissions = async function queryPendingSubmissions() {
   try {
-    var result = await db.mileageLog.findAll({
+    var result = await db.bonusLog.findAll({
       where: {
         iStatus: 0
       }
@@ -114,7 +104,7 @@ module.exports.queryPendingSubmissions = async function queryPendingSubmissions(
 
 module.exports.queryPendingRiderInfo = async function queryPendingRiderInfo(rider) {
   try {
-    var result = await db.User.findAll({
+    var result = await db.user.findAll({
       where: {
         id: rider
       }
@@ -127,7 +117,7 @@ module.exports.queryPendingRiderInfo = async function queryPendingRiderInfo(ride
 
 module.exports.queryPendingBikeInfo = async function queryPendingBikeInfo(rider) {
   try {
-    var result = await db.Bike.findAll({
+    var result = await db.bike.findAll({
       where: {
         user_id: rider
       }

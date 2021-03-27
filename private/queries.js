@@ -141,6 +141,35 @@ module.exports.queryPendingBikeInfo = async function queryPendingBikeInfo(rider)
   }
 }
 
+module.exports.queryHandledSubmissions = async function queryHandledSubmissions() {
+  try {
+    var result = await sequelize.query("SELECT * FROM bonusLogs bl LEFT JOIN bonusItems bi ON bi.id = bl.bonus_id INNER JOIN users u ON u.id = bl.user_id WHERE bl.iStatus != 0 ORDER BY bl.updatedAt DESC LIMIT 4",
+    {
+      type: QueryTypes.SELECT
+    });
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
+// module.exports.queryHandledSubmissions = async function queryHandledSubmissions() {
+//   try {
+//     var result = await db.bonusLog.findAll({
+//       limit: 4,
+//       where: {
+//         iStatus: [1, 2]
+//       },
+//       order: [
+//         ['updatedAt', 'DESC']
+//       ]
+//     })
+//     return result;
+//   } catch (err) {
+//     throw err;
+//   }
+// }
+
 module.exports.queryCompletedByRider = async function queryCompletedByRider(rider) {
   try {
     var result = await db.bonusLog.findAll({

@@ -72,21 +72,27 @@ module.exports = function (app) {
 
   app.get("/review", isAuthenticated, isAdmin, async (req, res) => {
     var qPendingSubmissionCount = await q.queryPendingSubmissionCount();
+    var qHandledSubmissions = await q.queryHandledSubmissions();
+
     if (qPendingSubmissionCount > 0) {
       var qPendingSubmissions = await q.queryPendingSubmissions();
       var qPendingBonusDetail = await q.queryPendingBonusDetail(qPendingSubmissions[0].bonus_id);
       var qPendingRiderInfo = await q.queryPendingRiderInfo(qPendingSubmissions[0].user_id);
       var qPendingBikeInfo = await q.queryPendingBikeInfo(qPendingSubmissions[0].user_id);
+      console.log("====================");
+      console.log(qPendingBonusDetail);
       res.render("pages/review", {
         pendingBonusCount: qPendingSubmissionCount,
         pendingBonuses: qPendingSubmissions,
         pendingRiderInfo: qPendingRiderInfo,
         pendingBikeInfo: qPendingBikeInfo,
-        pendingBonusDetail: qPendingBonusDetail
+        pendingBonusDetail: qPendingBonusDetail,
+        handledSubmissions: qHandledSubmissions
       });
     } else {
       res.render("pages/review", {
-        pendingBonusCount: qPendingSubmissionCount
+        pendingBonusCount: qPendingSubmissionCount,
+        handledSubmissions: qHandledSubmissions
       });
     }
   });

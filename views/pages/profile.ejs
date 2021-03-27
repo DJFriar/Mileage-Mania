@@ -7,14 +7,16 @@
     <div class="uk-container" uk-height-viewport="expand: true">
       <main>
         <div class="uk-container-small uk-margin-auto">
-          <div class="uk-width-1-5">
-            IMG
-          </div>
-          <div class="uk-width-4-5">
-            <p>
-              <%= user.FirstName %>&nbsp;<%= user.LastName %><br />
-                  <%= user.UserName %>&nbsp;<%= user.Email %>
-            </p>
+          <div class="uk-grid-small" uk-grid>
+            <div class="uk-width-1-6">
+              <i class="fad fa-user-circle fa-7x"></i>
+            </div>
+            <div class="uk-width-5-6">
+              <p class="uk-align-center">
+                <%= user.FirstName %>&nbsp;<%= user.LastName %><br />
+                    <%= user.UserName %>&nbsp;<%= user.Email %>
+              </p>
+            </div>
           </div>
           <div uk-grid>
             <div class="uk-width-1-2@s">

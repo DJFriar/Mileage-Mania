@@ -102,6 +102,19 @@ module.exports.queryPendingSubmissions = async function queryPendingSubmissions(
   }
 }
 
+module.exports.queryPendingBonusDetail = async function queryPendingBonusDetail(id) {
+  try {
+    var result = await db.bonusItem.findAll({
+      where: {
+        id: id
+      }
+    })
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
 module.exports.queryPendingRiderInfo = async function queryPendingRiderInfo(rider) {
   try {
     var result = await db.user.findAll({

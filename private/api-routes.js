@@ -96,7 +96,7 @@ module.exports = function (app) {
           bike_id: req.body.bike_id,
           user_id: req.user.id,
           bonus_id: null,
-          odoValue: req.body.ReportedMileage,
+          odoValue: req.body.odoValue,
           imageName: req.body.images[0],
           iStatus: 0 // 0 = Pending Approval
         })

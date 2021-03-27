@@ -21,7 +21,7 @@ module.exports = function (app) {
     res.render("pages/signup");
   });
 
-  app.get("/profile", isAuthenticated, async(req, res) => {
+  app.get("/profile", isAuthenticated, async (req, res) => {
     console.log(req.user);
     var rider = req.user.id;
     var qBonuses = await q.queryAllBonusItems();
@@ -29,7 +29,7 @@ module.exports = function (app) {
     var qCompleted = await q.queryAllBonusesWithStatus(rider);
     console.log("==============")
     console.log(qCompleted);
-    
+
     res.render("pages/profile", {
       user: req.user,
       bonuses: qBonuses,
@@ -58,7 +58,7 @@ module.exports = function (app) {
     res.render("pages/history");
   });
 
-  app.get("/submit", isAuthenticated, async(req, res) => {
+  app.get("/submit", isAuthenticated, async (req, res) => {
     var rider = req.user.id;
     var qBonuses = await q.queryAllBonusItems();
     var qBikes = await q.queryAllBikes(rider);
@@ -70,24 +70,31 @@ module.exports = function (app) {
     });
   });
 
-  app.get("/review", isAuthenticated, isAdmin, async(req, res) => {
+  app.get("/review", isAuthenticated, isAdmin, async (req, res) => {
     var qPendingSubmissionCount = await q.queryPendingSubmissionCount();
-    var qPendingSubmissions = await q.queryPendingSubmissions();
-    var qPendingRiderInfo = await q.queryPendingRiderInfo(qPendingSubmissions[0].user_id);
-    var qPendingBikeInfo = await q.queryPendingBikeInfo(qPendingSubmissions[0].user_id);
-
-    res.render("pages/review", {
-      pendingBonusCount: qPendingSubmissionCount,
-      pendingBonuses: qPendingSubmissions,
-      pendingRiderInfo: qPendingRiderInfo,
-      PendingBikeInfo: qPendingBikeInfo
-    });
+    if (qPendingSubmissionCount > 0) {
+      var qPendingSubmissions = await q.queryPendingSubmissions();
+      var qPendingBonusDetail = await q.queryPendingBonusDetail(qPendingSubmissions[0].bonus_id);
+      var qPendingRiderInfo = await q.queryPendingRiderInfo(qPendingSubmissions[0].user_id);
+      var qPendingBikeInfo = await q.queryPendingBikeInfo(qPendingSubmissions[0].user_id);
+      res.render("pages/review", {
+        pendingBonusCount: qPendingSubmissionCount,
+        pendingBonuses: qPendingSubmissions,
+        pendingRiderInfo: qPendingRiderInfo,
+        pendingBikeInfo: qPendingBikeInfo,
+        pendingBonusDetail: qPendingBonusDetail
+      });
+    } else {
+      res.render("pages/review", {
+        pendingBonusCount: qPendingSubmissionCount
+      });
+    }
   });
 
-  app.get("/stats", async(req, res) => {
+  app.get("/stats", async (req, res) => {
     var qPendingSubmissionCount = await q.queryPendingSubmissionCount();
     console.log(qPendingSubmissionCount + " remaining submissions");
-    
+
     res.render("pages/stats", {
       pendingBonuses: qPendingSubmissionCount
     });

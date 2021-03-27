@@ -1,0 +1,64 @@
+<h6>
+  <%= pendingBonusCount %> Submissions Awaiting Review<br />
+</h6>
+<div class="uk-grid-small uk-grid" uk-grid>
+  <div class="uk-width-2-3@m">
+    <img class="uk-align-center mm-img-border" data-src="/uploads/<%= pendingBonuses[0].imageName %>" width="434"
+      height="370" uk-img>
+    <div class="uk-text-center" id="approvalButtons">
+      <!-- <button class="uk-button uk-button-danger" uk-toggle="target: #modal-rejection"> -->
+      <button class="uk-button uk-button-danger rejectButton" data-bonuskey="<%= pendingBonuses[0].id %>">
+        <i class="far fa-thumbs-down"></i>&nbsp; Reject
+      </button>
+      <button class="uk-button mm-button-green approveButton" data-bonuskey="<%= pendingBonuses[0].id %>">
+        <i class="far fa-thumbs-up"></i>&nbsp; Approve
+      </button>
+    </div>
+  </div>
+  <div class="uk-width-1-3@m">
+    <dl class="uk-description-list uk-description-list-divider">
+      <dt>
+        Submission Info
+      </dt>
+      <dd>
+        <% if(pendingBonuses[0].odoValue) { %>
+          <div class="mm-label mm-flag"><span class="fad fa-tachometer-alt fa-lg"></span></div>
+        <div class="mm-label ">
+          <%= pendingBonuses[0].odoValue %> mi
+        </div>
+        <% } %>
+        <% if(pendingBonuses[0].bonus_id) { %>
+          <div class="mm-label mm-flag"><span class="fad fa-paw fa-lg"></span></span></div>
+        <div class="mm-label ">
+          <%= pendingBonusDetail[0].BonusCode %>
+        </div>
+        <% } %>
+      </dd>
+      <dt>
+        Rider Info<br />
+        <span class="mm-label mm-flag">
+          <%= pendingRiderInfo[0].FlagNumber %>
+        </span>
+      </dt>
+      <dd>
+        Tommy Craft<br />
+        <%= pendingBikeInfo[0].Year %>
+          <%= pendingBikeInfo[0].Make %>
+            <%= pendingBikeInfo[0].Model %><br />
+              Allen, TX
+      </dd>
+      <!-- <dt>Photo Info</dt>
+                <dd>
+                  <span class="fas fa-clock fa-fw"></span>&nbsp;Captured: 28 Mar 2021 @
+                  1408<br />
+                  <a class="uk-link-reset"
+                    href="https://www.google.com/maps/@?api=1&map_action=map&zoom=20&basemap=satellite&center=33.639588,-95.523926"
+                    target="_blank"><span class="fas fa-map-marker-alt fa-fw"></span>&nbsp;Lat:
+                    33.639588 / Lon: -95.523926<br /></a>
+                  <div class="mapBox">
+                    <div id="map"></div>
+                  </div>
+                </dd> -->
+    </dl>
+  </div>
+</div>

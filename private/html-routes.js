@@ -9,21 +9,7 @@ module.exports = function (app) {
   // ===============================================================================
   // HTML ROUTES
   // ===============================================================================
-  app.get("/", function (req, res) {
-    var activeUser = false
-    if (req.user) { activeUser = true };
-    res.render("pages/index", {
-      activeUser
-    });
-  });
 
-  app.get("/login", function (req, res) {
-    res.render("pages/login", { activeUser: false });
-  });
-
-  app.get("/signup", function (req, res) {
-    res.render("pages/signup", { activeUser: false });
-  });
 
   app.get("/profile", isAuthenticated, async (req, res) => {
     var activeUser = false
@@ -43,24 +29,6 @@ module.exports = function (app) {
       bikes: qBikes,
       completed: qCompleted
     });
-  });
-
-  app.get("/2021", isAuthenticated, function (req, res) {
-    var activeUser = false
-    if (req.user) { activeUser = true };
-    res.render("pages/2021", { activeUser });
-  });
-
-  app.get("/2020", isAuthenticated, function (req, res) {
-  });
-
-  app.get("/contact", isAuthenticated, function (req, res) {
-  });
-
-  app.get("/covid1000", isAuthenticated, function (req, res) {
-  });
-
-  app.get("/history", isAuthenticated, function (req, res) {
   });
 
   app.get("/submit", isAuthenticated, async (req, res) => {
@@ -167,6 +135,30 @@ module.exports = function (app) {
       bonuses: qBonuses,
       riders: qRiders
     });
+  });
+
+  app.get("/", isAuthenticated, function (req, res) {
+  });
+
+  app.get("/login", isAuthenticated, function (req, res) {
+  });
+
+  app.get("/signup", isAuthenticated, function (req, res) {
+  });
+
+  app.get("/2021", isAuthenticated, function (req, res) {
+  });
+
+  app.get("/2020", isAuthenticated, function (req, res) {
+  });
+
+  app.get("/contact", isAuthenticated, function (req, res) {
+  });
+
+  app.get("/covid1000", isAuthenticated, function (req, res) {
+  });
+
+  app.get("/history", isAuthenticated, function (req, res) {
   });
 
   // If no matching route is found, return the 404 page

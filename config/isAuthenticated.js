@@ -1,7 +1,7 @@
 // This is middleware for restricting routes a user is not allowed to visit if not logged in
 module.exports = function(req, res, next) {
   source = req.route.path;
-  publicPages = ["/history", "/2020", "/2021", "/covid1000", "/contact"];
+  publicPages = ["/", "/login", "/signup", "/history", "/2020", "/2021", "/covid1000", "/contact"];
 
   // Logged in, private page
   if (req.user && !publicPages.includes(source)) {

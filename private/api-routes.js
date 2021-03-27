@@ -115,16 +115,16 @@ module.exports = function (app) {
     }
   );
 
-  // Get all users
-  app.get("/api/riders", function (req, res) {
-    db.User.all(function (data) {
-      const hbsObject = {
-        users: data
-      };
-      console.log(hbsObject);
-      res.render("index", hbsObject);
+  // Update submissions
+  app.put('/handle-submission', function (req, res) {
+    console.debug(req.body);
+    db.mileageLog.update({ iStatus: req.body.iStatus }, {
+      where: {
+        id: req.body.submissionID,
+      }
     });
-  });
+    res.send("success");
+  })
 
   // Get all bikes
   app.get("/api/bikes", function (req, res) {
@@ -138,6 +138,11 @@ module.exports = function (app) {
     req.logout();
     res.redirect("/");
   });
+
+
+
+
+
 
   // Route for getting some data about our user to be used client side
   app.get("/api/user_data", (req, res) => {

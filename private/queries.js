@@ -1,4 +1,6 @@
-const db = require("../models")
+const db = require("../models");
+const { Op, QueryTypes } = require("sequelize");
+const { sequelize } = require("../models");
 
 module.exports.queryAllBonusItems = async function queryAllBonusItems(id = false) {
   try {
@@ -14,6 +16,20 @@ module.exports.queryAllBonusItems = async function queryAllBonusItems(id = false
         raw: true,
       })
     }
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
+module.exports.queryAllBonusesWithStatus = async function queryAllBonusesWithStatus(rider) {
+  try {
+    var result = await sequelize.query("SELECT * FROM bonusItems bi INNER JOIN bonusLogs bl ON bi.id = bl.bonus_id WHERE iStatus != 0 AND bl.user_id = ?",
+      {
+        replacements: [rider],
+        type: QueryTypes.SELECT
+      });
+    console.log(result);
     return result;
   } catch (err) {
     throw err;
@@ -88,6 +104,46 @@ module.exports.queryPendingSubmissions = async function queryPendingSubmissions(
     var result = await db.mileageLog.findAll({
       where: {
         iStatus: 0
+      }
+    })
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
+module.exports.queryPendingRiderInfo = async function queryPendingRiderInfo(rider) {
+  try {
+    var result = await db.User.findAll({
+      where: {
+        id: rider
+      }
+    })
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
+module.exports.queryPendingBikeInfo = async function queryPendingBikeInfo(rider) {
+  try {
+    var result = await db.Bike.findAll({
+      where: {
+        user_id: rider
+      }
+    })
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
+module.exports.queryCompletedByRider = async function queryCompletedByRider(rider) {
+  try {
+    var result = await db.bonusLog.findAll({
+      where: {
+        user_id: rider,
+        [Op.not]: { iStatus: [0, 2] }
       }
     })
     return result;

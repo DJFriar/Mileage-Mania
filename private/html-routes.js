@@ -26,11 +26,15 @@ module.exports = function (app) {
     var rider = req.user.id;
     var qBonuses = await q.queryAllBonusItems();
     var qBikes = await q.queryAllBikes(rider);
+    var qCompleted = await q.queryAllBonusesWithStatus(rider);
+    console.log("==============")
+    console.log(qCompleted);
     
     res.render("pages/profile", {
       user: req.user,
       bonuses: qBonuses,
-      bikes: qBikes
+      bikes: qBikes,
+      completed: qCompleted
     });
   });
 
@@ -69,10 +73,14 @@ module.exports = function (app) {
   app.get("/review", isAuthenticated, isAdmin, async(req, res) => {
     var qPendingSubmissionCount = await q.queryPendingSubmissionCount();
     var qPendingSubmissions = await q.queryPendingSubmissions();
+    var qPendingRiderInfo = await q.queryPendingRiderInfo(qPendingSubmissions[0].user_id);
+    var qPendingBikeInfo = await q.queryPendingBikeInfo(qPendingSubmissions[0].user_id);
 
     res.render("pages/review", {
       pendingBonusCount: qPendingSubmissionCount,
-      pendingBonuses: qPendingSubmissions
+      pendingBonuses: qPendingSubmissions,
+      pendingRiderInfo: qPendingRiderInfo,
+      PendingBikeInfo: qPendingBikeInfo
     });
   });
 

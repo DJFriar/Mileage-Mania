@@ -116,14 +116,25 @@ module.exports = function (app) {
   );
 
   // Update submissions
-  app.put('/handle-submission', function (req, res) {
+  app.put("/handle-submission", function (req, res) {
     console.debug(req.body);
     db.bonusLog.update({ iStatus: req.body.iStatus }, {
-      where: {
-        id: req.body.submissionID,
-      }
+      where: { id: req.body.submissionID }
     });
     res.send("success");
+  })
+
+  // Handle Profile Updates
+  app.put("/profile", function (req, res) {
+    db.user.update({
+      FirstName: req.body.FirstName,
+      LastName: req.res.LastName,
+      UserName: req.body.UserName,
+      Email: req.body.Email
+    }, {
+      where: { id: req.body.userID }
+    });
+    res.redirect("/profile");
   })
 
   // Get all bikes

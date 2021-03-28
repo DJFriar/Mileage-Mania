@@ -11,14 +11,43 @@
     <div class="uk-container" uk-height-viewport="expand: true">
       <main>
         <div class="uk-container-small uk-margin-auto">
-          <div class="uk-grid-small" uk-grid>
+          <div class="uk-grid-small uk-height-match" uk-height-match uk-grid>
             <div class="uk-width-1-6">
-              <i class="fad fa-user-circle fa-7x"></i>
+              <i class="fad fa-user-circle fa-7x uk-margin-bottom"></i><br/>
+              <span class="hidden-link editProfile"><i class="fal fa-edit " ></i> Edit Profile</span>
             </div>
             <div class="uk-width-5-6">
-              <p class="uk-align-center">
-                <%= user.FirstName %>&nbsp;<%= user.LastName %><br />
-                    <%= user.UserName %>&nbsp;<%= user.Email %>
+              <p class="uk-position-relative uk-position-center-left">
+                <form class="profileData ">
+                  <div class="uk-text-lead" id="profileInfo">
+                    <p class="uk-margin-remove"><%= user.FirstName %>&nbsp;<%= user.LastName %></p>
+                    <p class="uk-margin-remove"><%= user.UserName %></p>
+                    <p class="uk-margin-remove"><%= user.Email %></p>
+                  </div>
+                  <div class="hide-me" id="editProfileInfo">
+                    <p >
+                      <div class="uk-form-stacked">
+                        <label class="uk-form-label" for="FirstName">First Name</label>
+                        <input class="uk-input uk-form-width-small" type="text" id="FirstName" value="<%= user.FirstName %>">
+                      </div>
+                      <div class="uk-form-stacked">
+                        <label class="uk-form-label" for="LastName">Last Name</label>
+                        <input class="uk-input uk-form-width-small" type="text" id="LastName" value="<%= user.LastName %>">
+                      </div>
+                    </p>
+                    <p class="uk-form-stacked">
+                      <label class="uk-form-label" for="UserName">Username</label>
+                      <input class="uk-input uk-form-width-medium" type="text" id="UserName" value="<%= user.UserName %>">
+                    </p>
+                    <p class="uk-form-stacked">
+                      <label class="uk-form-label" for="Email">Email</label>
+                      <input class="uk-input uk-form-width-medium" type="text" id="Email" value="<%= user.Email %>">
+                    </p>
+                    <button class="uk-button uk-button-default uk-button-small editProfile">Cancel</button>
+                    <button class="uk-button uk-button-default uk-button-small" type="button" 
+                      id="saveProfileEdits" data-userid="<%= user.id %>">Save</button>
+                  </div>
+                </form>
               </p>
             </div>
           </div>

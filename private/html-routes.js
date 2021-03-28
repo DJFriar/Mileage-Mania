@@ -1,6 +1,7 @@
 var path = require("path");
 const db = require("../models");
 const q = require("../private/queries");
+const moment = require("moment");
 // Requiring our custom middleware for checking if a user is logged in
 const isAuthenticated = require("../config/isAuthenticated");
 const isAdmin = require("../config/isAdmin");
@@ -37,12 +38,15 @@ module.exports = function (app) {
     var rider = req.user.id;
     var qBonuses = await q.queryAllBonusItems();
     var qBikes = await q.queryAllBikes(rider);
-
+    var qSubmissionHistory = await q.querySubmissionsByRider(rider);
+    console.debug(qSubmissionHistory);
     res.render("pages/submit", {
       activeUser,
       user: req.user,
       bonuses: qBonuses,
-      bikes: qBikes
+      bikes: qBikes,
+      history: qSubmissionHistory,
+      moment: moment
     });
   });
 
@@ -64,7 +68,6 @@ module.exports = function (app) {
       var qPendingBonusDetail = await q.queryPendingBonusDetail(qPendingSubmissions[0].bonus_id);
       var qPendingRiderInfo = await q.queryPendingRiderInfo(qPendingSubmissions[0].user_id);
       var qPendingBikeInfo = await q.queryPendingBikeInfo(qPendingSubmissions[0].user_id);
-      // var qUserRights = await q.queryUserRights(req.user.id);
       res.render("pages/review", {
         activeUser,
         user: req.user,
@@ -73,14 +76,16 @@ module.exports = function (app) {
         pendingRiderInfo: qPendingRiderInfo,
         pendingBikeInfo: qPendingBikeInfo,
         pendingBonusDetail: qPendingBonusDetail,
-        handledSubmissions: qHandledSubmissions
+        handledSubmissions: qHandledSubmissions,
+        moment: moment
       });
     } else {
       res.render("pages/review", {
         activeUser,
         user: req.user,
         pendingBonusCount: qPendingSubmissionCount,
-        handledSubmissions: qHandledSubmissions
+        handledSubmissions: qHandledSubmissions,
+        moment: moment
       });
     }
   });

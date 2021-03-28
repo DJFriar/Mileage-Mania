@@ -51,16 +51,16 @@
                         </div>
                       <div class="uk-width-auto@s uk-text-right">
                         <span class="uk-text-meta">
-                          <%= submission.createdAt %>
+                          <%= moment(submission.createdAt).format('D MMM YYYY @ kk:mm').toUpperCase(); %>
                         </span>
                       </div>
                     </div>
                     <div class="uk-grid-small" uk-grid>
                       <div class="uk-width-auto@s uk-text-left">
                         <% if(submission.bonus_id) { %>
-                          <span class="uk-text-meta"><%= submission.Value %> pts</span>
+                          <span class="uk-text-meta"><%= (submission.Value).toLocaleString('en') %> pts</span>
                         <% } else { %>
-                          <span class="uk-text-meta"><%= submission.odoValue %> mi</span>
+                          <span class="uk-text-meta"><%= (submission.odoValue).toLocaleString('en') %> mi</span>
                         <% } %>
                       </div>
                       <div class="uk-width-expand@s uk-text-right">
@@ -77,88 +77,6 @@
                 </div>
               </div>
             <% }) %>
-<!-- Placeholder Content Below -->
-            <div>
-              <div class="uk-card uk-card-default">
-                <div class="uk-card-media-top">
-                  <img src="images/RESC.jpg" alt="">
-                </div>
-                <div class="mm-card-badge-left mm-label mm-flag">17</div>
-                <div class="mm-card-badge-right uk-label uk-label-success">Approved</div>
-                <div class="uk-card-body">
-                  <div class="uk-grid-small" uk-grid>
-                    <div class="uk-width-expand@s uk-text-left">
-                      <span class="fad fa-paw fa-lg"></span>
-                    </div>
-                    <div class="uk-width-auto@s uk-text-right">
-                      <span class="uk-text-meta">27 FEB 2021 @ 19:28</span>
-                    </div>
-                  </div>
-                  <div class="uk-grid-small" uk-grid>
-                    <div class="uk-width-auto@s uk-text-left">
-                      <span class="uk-text-meta">1,000 pts</span>
-                    </div>
-                    <div class="uk-width-expand@s uk-text-right">
-                      <span class="uk-text-meta">RESC</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="uk-card uk-card-default">
-                <div class="uk-card-media-top">
-                  <img src="images/LDRR.jpg" alt="">
-                </div>
-                <div class="mm-card-badge-left mm-label mm-flag">17</div>
-                <div class="mm-card-badge-right uk-label uk-label-success">Approved</div>
-                <div class="uk-card-body">
-                  <div class="uk-grid-small" uk-grid>
-                    <div class="uk-width-expand@s uk-text-left">
-                      <span class="fad fa-paw fa-lg"></span>
-                    </div>
-                    <div class="uk-width-auto@s uk-text-right">
-                      <span class="uk-text-meta">27 FEB 2021 @ 19:28</span>
-                    </div>
-                  </div>
-                  <div class="uk-grid-small" uk-grid>
-                    <div class="uk-width-auto@s uk-text-left">
-                      <span class="uk-text-meta">2,000 pts</span>
-                    </div>
-                    <div class="uk-width-expand@s uk-text-right">
-                      <span class="uk-text-meta">LDDR</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="uk-card uk-card-default">
-                <div class="uk-card-media-top">
-                  <img src="images/ODO1.jpg" alt="">
-                </div>
-                <div class="mm-card-badge-left mm-label mm-flag">16</div>
-                <div class="mm-card-badge-right uk-label uk-label-danger">Rejected</div>
-                <div class="uk-card-body">
-                  <div class="uk-grid-small" uk-grid>
-                    <div class="uk-width-expand@s uk-text-left">
-                      <span class="fad fa-tachometer-alt fa-lg"></span>
-                    </div>
-                    <div class="uk-width-auto@s uk-text-right">
-                      <span class="uk-text-meta">27 FEB 2021 @ 19:28</span>
-                    </div>
-                  </div>
-                  <div class="uk-grid-small" uk-grid>
-                    <div class="uk-width-auto@s uk-text-left">
-                      <span class="uk-text-meta">95,881 mi</span>
-                    </div>
-                    <div class="uk-width-expand@s uk-text-right">
-                      <span class="uk-text-meta">ODO</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </main>

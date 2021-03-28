@@ -156,7 +156,7 @@ module.exports.queryPendingBikeInfo = async function queryPendingBikeInfo(rider)
 
 module.exports.queryHandledSubmissions = async function queryHandledSubmissions(limit) {
   try {   
-    var result = await sequelize.query("SELECT * FROM bonusLogs bl LEFT JOIN bonusItems bi ON bi.id = bl.bonus_id INNER JOIN users u ON u.id = bl.user_id WHERE bl.iStatus != 0 ORDER BY bl.updatedAt DESC LIMIT ?",
+    var result = await sequelize.query("SELECT bl.*, bi.BonusCode, bi.BonusName, bi.Value, u.FirstName, u.LastName, u.UserName, u.FlagNumber, u.isActive, u.isAdmin FROM bonusLogs bl LEFT JOIN bonusItems bi ON bi.id = bl.bonus_id INNER JOIN users u ON u.id = bl.user_id WHERE bl.iStatus != 0 ORDER BY bl.updatedAt DESC LIMIT ?",
     {
       replacements: [limit],
       type: QueryTypes.SELECT
@@ -192,6 +192,19 @@ module.exports.queryCompletedByRider = async function queryCompletedByRider(ride
         [Op.not]: { iStatus: [0, 2] }
       }
     })
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
+module.exports.querySubmissionsByRider = async function querySubmissionsByRider(rider) {
+  try {
+    var result = await sequelize.query("SELECT bl.*, bi.BonusCode, bi.BonusName, bi.Value, u.FirstName, u.LastName, u.UserName, u.FlagNumber, u.isActive, u.isAdmin FROM bonusLogs bl LEFT JOIN bonusItems bi ON bi.id = bl.bonus_id INNER JOIN users u ON u.id = bl.user_id WHERE bl.user_id = ? ORDER BY bl.updatedAt DESC LIMIT 10",
+    {
+      replacements: [rider],
+      type: QueryTypes.SELECT
+    });
     return result;
   } catch (err) {
     throw err;

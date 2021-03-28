@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  const Bike = sequelize.define("Bike", {
+  const Bike = sequelize.define("bike", {
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -19,6 +19,12 @@ module.exports = function(sequelize, DataTypes) {
     Model: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    StartingOdo: {
+      type: DataTypes.INTEGER
+    },
+    VerifiedOdo: {
+      type: DataTypes.INTEGER
     }
   });
 

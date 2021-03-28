@@ -12,10 +12,7 @@ $(document).ready(() => {
       type: "POST",
       data: newBike
     }).then(
-      function() {
-        console.log("Entry added to the bike list");
-        location.reload();
-      }
+      function() { location.reload(); }
     );
   });
 
@@ -25,11 +22,34 @@ $(document).ready(() => {
     $.ajax("/api/delVisitedPark/" + id, {
       type: "DELETE"
     }).then(
-      function() {
-        console.log("deleted visited:", id);
-        // Reload the page to get the updated list
-        location.reload();
-      }
+      function() { location.reload(); }
+    );
+  });
+
+  // Edit profile info toggle
+  $(".editProfile").on("click", function(event) {
+    event.preventDefault();
+    $("#editProfileInfo").toggleClass("hide-me");
+    $("#profileInfo").toggleClass("hide-me");
+  });
+
+  // Save changes to user profile
+  $("#saveProfileEdits").on("click", function() {
+    var userID = $(this).data("userid");
+    console.log(userID);
+    var updateUserProfile = {
+      userID,
+      FirstName: $("#FirstName").val().trim(),
+      LastName: $("#LastName").val().trim(),
+      UserName: $("#UserName").val().trim(),
+      Email: $("#Email").val().trim()
+    }
+
+    $.ajax("/profile", {
+      type: "PUT",
+      data: updateUserProfile
+    }).then(
+      function() { location.reload(); }
     );
   });
 });

@@ -3,8 +3,12 @@
 </head>
 
 <body>
-  <%- include('../partials/topnav'); %>
-  <div class="uk-container" uk-height-viewport="expand: true">
+  <% if(activeUser) { %>
+    <%- include('../partials/topnavUser'); %>
+  <% } else { %>
+    <%- include('../partials/topnav'); %>
+  <% } %>
+  <div class="uk-container" uk-height-viewport="expand: true" style="height:calc(90vh - 300px);">
     <main>
       <div class="uk-container-small uk-margin-auto">
         <div class="uk-text-center">
@@ -13,8 +17,9 @@
         <p>Index content goes here</p>
       </div>
     </main>
-    <footer>
-      <%- include('../partials/footer'); %>
-    </footer>
+
   </div>
+  <footer >
+    <%- include('../partials/footer'); %>
+  </footer>
 </body>

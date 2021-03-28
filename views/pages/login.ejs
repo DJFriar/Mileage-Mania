@@ -3,7 +3,11 @@
 </head>
 
 <body>
-  <%- include('../partials/topnav'); %>
+  <% if(activeUser) { %>
+    <%- include('../partials/topnavUser'); %>
+  <% } else { %>
+    <%- include('../partials/topnav'); %>
+  <% } %>
   <div class="uk-container" uk-height-viewport="expand: true">
     <main>
       <div class="uk-container-xsmall uk-margin-auto">

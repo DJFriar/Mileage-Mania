@@ -42,11 +42,4 @@ $(document).ready(function () {
     $(".odoField").addClass("hide-me");
     $(".bonusField").removeClass("hide-me");
   })
-
-  // $("#saveOdoSubmissionForm").on("submit",function(e){
-  //   e.preventDefault();
-  //   var formData = $(this).serialize();
-  //   console.log(formData);
-  //   alert("hoya");
-  // });
 });

@@ -11,10 +11,7 @@ $(document).ready(function () {
       type: "PUT",
       data: updateMileageLog
     }).then(
-      function() {
-        console.log("Entry approved");
-        location.reload();
-      }
+      function() { location.reload(); }
     );
   });
 
@@ -30,10 +27,7 @@ $(document).ready(function () {
       type: "PUT",
       data: updateMileageLog
     }).then(
-      function() {
-        console.log("Entry denied");
-        location.reload();
-      }
+      function() { location.reload(); }
     );
   });
 })

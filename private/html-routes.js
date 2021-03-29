@@ -21,8 +21,9 @@ module.exports = function (app) {
     var qBikes = await q.queryAllBikes(rider);
     var qCompleted = await q.queryCompletedIDsByRider(rider);
     var qMileageRidden = await q.queryMileageRiddenByRider(rider);
-    console.log("======== TOTAL ========")
-    console.log(qMileageRidden);
+    var qPointsEarned = await q.queryPointsEarnedByRider(rider);
+    console.log("======== TOTAL POINTS ========")
+    console.log(qPointsEarned);
     for (i = 0; i < qBonuses.length; i++){
       if (qCompleted.indexOf(qBonuses[i].id) > -1 ){
         qBonuses[i].completed = "completedBonus";
@@ -35,7 +36,8 @@ module.exports = function (app) {
       bonuses: qBonuses,
       bikes: qBikes,
       completed: qCompleted,
-      mileageRidden: qMileageRidden
+      mileageRidden: qMileageRidden,
+      pointsEarned: qPointsEarned
     });
   });
 
@@ -68,13 +70,14 @@ module.exports = function (app) {
     } else if (req.user.id) {
       userStatus = 1;
     }
-    console.log("====================");
-    console.log(req.user);
+    console.log("======== PENDING BONUSES =========");
+    console.log(qPendingSubmissionCount);
     if (qPendingSubmissionCount > 0) {
       var qPendingSubmissions = await q.queryPendingSubmissions();
       var qPendingBonusDetail = await q.queryPendingBonusDetail(qPendingSubmissions[0].bonus_id);
       var qPendingRiderInfo = await q.queryPendingRiderInfo(qPendingSubmissions[0].user_id);
       var qPendingBikeInfo = await q.queryPendingBikeInfo(qPendingSubmissions[0].user_id);
+    console.log(qPendingBonusDetail);
       res.render("pages/review", {
         activeUser,
         user: req.user,

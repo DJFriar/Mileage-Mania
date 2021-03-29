@@ -56,10 +56,10 @@
               <h5>My Stats</h5>
               <div class="uk-grid-small" uk-grid>
                 <div class="uk-align-left" uk-tooltip="Subtracts latest approved Odometer submission from the first approved one.">
-                  Total Mileage: <%= mileageRidden %>
+                  Total Mileage: <%= (mileageRidden).toLocaleString('en') %>
                 </div>
                 <div class="uk-align-right" uk-tooltip="Only counts approved Grand Tour submissions.">
-                  Total Points: XX,XXX
+                  Total Points: <%= (pointsEarned).toLocaleString('en') %>
                 </div>
               </div>
               <div class="uk-grid-small uk-child-width-1-4@s uk-flex-center uk-text-center" uk-grid>

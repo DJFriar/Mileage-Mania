@@ -29,8 +29,6 @@ const uploadImages = (req, res, next) => {
 };
 
 const resizeImages = async (req, res, next) => {
-  console.log("========= resizeImages() =========")
-  console.log(req);
   if (!req.files) return;
 
   req.body.images = [];

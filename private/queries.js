@@ -42,7 +42,6 @@ module.exports.queryAllBonusesWithStatus = async function queryAllBonusesWithSta
         replacements: [rider],
         type: QueryTypes.SELECT
       });
-    console.log(result);
     return result;
   } catch (err) {
     throw err;

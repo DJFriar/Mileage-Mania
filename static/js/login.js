@@ -1,5 +1,4 @@
 $(document).ready(() => {
-  console.log("login js running");
   // Getting references to our form and inputs
   const loginForm = $("form.login");
   const emailInput = $("#UserEmail");
@@ -7,7 +6,6 @@ $(document).ready(() => {
 
   // When the form is submitted, we validate there's an email and password entered
   loginForm.on("submit", event => {
-    console.log("Login Button Clicked");
     event.preventDefault();
     const userData = {
       Email: emailInput.val().trim(),

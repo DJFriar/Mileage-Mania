@@ -33,7 +33,6 @@ $(document).ready(() => {
   // Save changes to user profile
   $("#saveProfileEdits").on("click", function() {
     var userID = $(this).data("userid");
-    console.log(userID);
     var updateUserProfile = {
       userID,
       FirstName: $("#FirstName").val().trim(),

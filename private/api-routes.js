@@ -28,7 +28,6 @@ module.exports = function (app) {
   // Delete a Bonus
   app.delete("/api/bonus/:id", (req, res) => {
     const id = req.params.id;
-    console.log("Removing " + id + " from bonus list");
     db.bonusItem.destroy({
       where: {
         id: id
@@ -63,8 +62,6 @@ module.exports = function (app) {
   // If the user has valid login credentials, send them to the profile page.
   // Otherwise the user will be sent an error
   app.post("/api/login", passport.authenticate("local"), (req, res) => {
-    console.log(req.user);
-    // Sending back a password, even a hashed password, isn't a good idea
     res.json({
       email: req.user.Email,
       id: req.user.id

@@ -117,7 +117,6 @@ module.exports = function (app) {
 
   // Update submissions
   app.put("/handle-submission", function (req, res) {
-    console.debug(req.body);
     db.bonusLog.update({ iStatus: req.body.iStatus }, {
       where: { id: req.body.submissionID }
     });

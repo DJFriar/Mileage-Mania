@@ -29,20 +29,27 @@ const uploadImages = (req, res, next) => {
 };
 
 const resizeImages = async (req, res, next) => {
+  console.log("========= resizeImages() =========")
+  console.log(req);
   if (!req.files) return;
 
   req.body.images = [];
   await Promise.all(
     req.files.map(async file => {
       const riderFlagNumber = req.user.FlagNumber;
-      const bonusID = "FREE"; // TODO: Replace with proper logic
+      var bonusID = "";
+      if (req.body.bonus_id) {
+        bonusID = "GT" + req.body.bonus_id;
+      } else {
+        bonusID = "ODO";
+      }
       const currentTimestamp = moment().unix(); // Appends the unix timestamp to the file to avoid overwriting.
       const newFilename = `${riderFlagNumber}-${bonusID}-${currentTimestamp}.jpg`;
 
       await sharp(file.buffer)
-        .resize(1024, 768, {
-          position: 'left top'
-        })
+        // .resize(1024, 768, {
+        //   position: 'left top'
+        // })
         .toFormat("jpeg")
         .jpeg({ quality: 90 })
         .toFile(`static/uploads/${newFilename}`);

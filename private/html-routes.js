@@ -146,7 +146,22 @@ module.exports = function (app) {
     });
   });
 
-  app.get("/", isAuthenticated, function (req, res) {
+  app.get("/", isAuthenticated, async (req, res) => {
+    var activeUser = false
+    var qHandledSubmissions = await q.queryHandledSubmissions(8);
+    if (req.user) { 
+      activeUser = true;
+      res.render("pages/index", {
+        activeUser,
+        user: req.user,
+        handledSubmissions: qHandledSubmissions
+      });
+    } else {
+      res.render("pages/index", {
+        activeUser,
+        handledSubmissions: qHandledSubmissions
+      });
+    };
   });
 
   app.get("/login", isAuthenticated, function (req, res) {

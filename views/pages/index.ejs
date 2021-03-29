@@ -10,16 +10,72 @@
   <% } %>
   <div class="uk-container" uk-height-viewport="expand: true" style="height:calc(90vh - 300px);">
     <main>
-      <div class="uk-container-small uk-margin-auto">
-        <div class="uk-text-center">
-          <img data-src="/images/MMHeader.png" width="434" height="370" alt="Jeff sitting on his bike" uk-img>
-        </div>
-        <p>Index content goes here</p>
+      <div class="uk-text-center">
+        <img data-src="/images/MMHeader.png" width="600" alt="Mileage Mania Logo" uk-img>
+      </div>
+      <p>Mileage Mania is an annual fundraiser that raises funds for <a href="https://freedomservicedogs.org/donate/" target="_blank">Freedom Service Dogs</a>. 
+        Since its inception in 2014, over $5,000 has been raised and the fundraising continues to grow exponentially each year.</p>
+        <p>Below is a live feed of what our participants are doing and seeing. We encourage you to follow along, or better yet, <a href="https://rides.jasonjonas.com/">join us</a>!</p>
+      <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l uk-grid uk-flex-top uk-flex-wrap-top" uk-grid="masonry: true">
+        <% handledSubmissions.forEach(function(submission) { %>
+          <div>
+            <div class="uk-card uk-card-default">
+              <div class="uk-card-media-top">
+                <img src="/uploads/<%= submission.imageName %>" alt="">
+              </div>
+              <div class="mm-card-badge-left mm-label mm-flag">
+                <%= submission.FlagNumber %>
+              </div>
+              <% if(submission.iStatus === 1) { %>
+                <div class="mm-card-badge-right uk-label uk-label-success">Approved</div>
+              <% } else if(submission.iStatus === 2) { %>
+                <div class="mm-card-badge-right uk-label uk-label-danger">Rejected</div>
+              <% } else {} %>
+              <div class="uk-card-body">
+                <div class="uk-grid-small" uk-grid>
+                  <div class="uk-width-expand@s uk-text-left">
+                    <% if(submission.bonus_id) { %>
+                      <span class="fad fa-paw fa-lg"></span>
+                    <% } else { %>
+                      <span class="fad fa-tachometer-alt fa-lg"></span>
+                    <% } %>
+                    </div>
+                  <div class="uk-width-auto@s uk-text-right">
+                    <span class="uk-text-meta">
+                      <%= submission.createdAt %>
+                    </span>
+                  </div>
+                </div>
+                <div class="uk-grid-small" uk-grid>
+                  <div class="uk-width-auto@s uk-text-left">
+                    <% if(submission.bonus_id) { %>
+                      <span class="uk-text-meta"><%= submission.Value %> pts</span>
+                    <% } else { %>
+                      <span class="uk-text-meta"><%= submission.odoValue %> mi</span>
+                    <% } %>
+                  </div>
+                  <div class="uk-width-expand@s uk-text-right">
+                    <% if(submission.BonusCode) { %>
+                      <span class="uk-text-meta">
+                        <%= submission.BonusCode %>
+                      </span>
+                    <% } else { %>
+                      <span class="uk-text-meta">ODO</span>
+                    <% } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }) %>
       </div>
     </main>
-
+    <% if(handledSubmissions.length >= 8) { %>
+      <button class="uk-button uk-button-default uk-align-center">View More</button>
+    <% } %>
+    <footer style="margin-top: 40px;">
+      <%- include('../partials/footer'); %>
+    </footer>
   </div>
-  <footer >
-    <%- include('../partials/footer'); %>
-  </footer>
+
 </body>

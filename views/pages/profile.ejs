@@ -54,8 +54,13 @@
           <div uk-grid>
             <div class="uk-width-1-2@s">
               <h5>My Stats</h5>
-              <div>
-                Total Mileage: XX,XXX
+              <div class="uk-grid-small" uk-grid>
+                <div class="uk-align-left" uk-tooltip="Subtracts latest approved Odometer submission from the first approved one.">
+                  Total Mileage: XX,XXX
+                </div>
+                <div class="uk-align-right" uk-tooltip="Only counts approved Grand Tour submissions.">
+                  Total Points: XX,XXX
+                </div>
               </div>
               <div class="uk-grid-small uk-child-width-1-4@s uk-flex-center uk-text-center" uk-grid>
                 <% bonuses.forEach(function(bonus) { %>
@@ -95,7 +100,10 @@
                     <% }) %>
                 </tbody>
               </table>
-              <form class="uk-grid-small uk-form-stacked" uk-grid>
+              <div class="uk-align-right">
+                <button type="button" id="addBikeButton" class="uk-button uk-button-default">Add Bike</button>
+              </div>
+              <form class="uk-grid-small uk-form-stacked hide-me" id="addBikeForm" uk-grid>
                 <div class="uk-width-1-1@s">
                   <label class="uk-form-label" for="BikeName">Bike Name</label>
                   <input class="uk-input" id="BikeName" rows="5" placeholder="Mr. Ed"></input>
@@ -116,7 +124,7 @@
                   &nbsp;
                 </div>
                 <div class="uk-width-1-3@s">
-                  <button type="button" id="addBikeButton" class="uk-button uk-button-default">Add Bike</button>
+                  <button type="button" id="saveNewBikeButton" class="uk-button uk-button-default">Save Bike</button>
                 </div>
               </form>
             </div>

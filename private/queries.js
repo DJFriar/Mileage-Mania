@@ -186,16 +186,6 @@ module.exports.queryHandledSubmissions = async function queryHandledSubmissions(
 
 module.exports.queryCompletedIDsByRider = async function queryCompletedIDsByRider(rider) {
   try {
-    // const result = await db.bonusLog.findAll({
-    //   attributes: ["bonus_id"],
-    //   where: {
-    //     user_id: rider,
-    //     iStatus: 1,
-    //     bonus_id: {
-    //       [Op.not]: null
-    //     } 
-    //   }
-    // }).map(i => i.get("bonus_id"));
     var result = await sequelize.query("SELECT bonus_id FROM bonusLogs WHERE bonus_id IS NOT NULL AND iStatus = 1 AND user_id = ?",
     {
       replacements: [rider],
@@ -216,6 +206,43 @@ module.exports.querySubmissionsByRider = async function querySubmissionsByRider(
       type: QueryTypes.SELECT
     });
     return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
+module.exports.queryMileageRiddenByRider = async function queryMileageRiddenByRider(rider) {
+  try {
+    var getStartingMileage = await sequelize.query("SELECT odoValue FROM bonusLogs WHERE odoValue IS NOT NULL AND iStatus = 1 AND user_id = ? ORDER BY createdAt ASC LIMIT 1",
+    {
+      raw: true,
+      replacements: [rider],
+      type: QueryTypes.SELECT
+    });
+
+    var getMostRecentMileage = await sequelize.query("SELECT odoValue FROM bonusLogs WHERE odoValue IS NOT NULL AND iStatus = 1 AND user_id = ? ORDER BY createdAt DESC LIMIT 1",
+    {
+      replacements: [rider],
+      type: QueryTypes.SELECT
+    });
+    var mileageRidden = getMostRecentMileage[0].odoValue - getStartingMileage[0].odoValue;
+    return mileageRidden;
+  } catch (err) {
+    throw err;
+  }
+}
+
+module.exports.queryPointsEarnedByRider = async function queryMileageRiddenByRider(rider) {
+  try {
+    var getStartingMileage = await sequelize.query("SELECT odoValue FROM bonusLogs WHERE odoValue IS NOT NULL AND iStatus = 1 AND user_id = ? ORDER BY createdAt ASC LIMIT 1",
+    {
+      raw: true,
+      replacements: [rider],
+      type: QueryTypes.SELECT
+    });
+
+    var mileageRidden = getMostRecentMileage[0].odoValue - getStartingMileage[0].odoValue;
+    return mileageRidden;
   } catch (err) {
     throw err;
   }

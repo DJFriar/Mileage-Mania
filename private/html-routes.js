@@ -20,8 +20,9 @@ module.exports = function (app) {
     var qBonuses = await q.queryAllBonusItems();
     var qBikes = await q.queryAllBikes(rider);
     var qCompleted = await q.queryCompletedIDsByRider(rider);
-    console.log("==============")
-    console.log(qCompleted);
+    var qMileageRidden = await q.queryMileageRiddenByRider(rider);
+    console.log("======== TOTAL ========")
+    console.log(qMileageRidden);
     for (i = 0; i < qBonuses.length; i++){
       if (qCompleted.indexOf(qBonuses[i].id) > -1 ){
         qBonuses[i].completed = "completedBonus";
@@ -33,7 +34,8 @@ module.exports = function (app) {
       user: req.user,
       bonuses: qBonuses,
       bikes: qBikes,
-      completed: qCompleted
+      completed: qCompleted,
+      mileageRidden: qMileageRidden
     });
   });
 

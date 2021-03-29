@@ -14,8 +14,8 @@
             <a href="#">Admin</a>
             <div class="uk-navbar-dropdown">
               <ul class="uk-nav uk-navbar-dropdown-nav">
-                <li><a href="/admin">Admin</a></li>
-                <li><a href="/review">Review</a></li>
+                <li><a href="/admin">Admin Tools</a></li>
+                <li><a href="/review">Review Submissions</a></li>
               </ul>
             </div>
           </li>
@@ -26,8 +26,8 @@
             <div class="uk-navbar-dropdown">
               <ul class="uk-nav uk-navbar-dropdown-nav">
                 <li><a href="/live">Live Feed</a></li>
-                <li><a href="/submit">Submit</a></li>
-                <li><a href="/stats">Stats</a></li>
+                <li><a href="/submit">Submit Photo</a></li>
+                <!-- <li><a href="/stats">Stats</a></li> -->
               </ul>
             </div>
           </li>
@@ -42,8 +42,8 @@
           </li>
         <% } %>
         <li><a href="/2021" class="hidden-link">2021</a></li>
-        <li><a href="/history" class="hidden-link">History</a></li>
-        <li>
+        <!-- <li><a href="/history" class="hidden-link">History</a></li> -->
+        <!-- <li>
           <a href="#">More</a>
           <div class="uk-navbar-dropdown">
             <ul class="uk-nav uk-navbar-dropdown-nav">
@@ -52,17 +52,17 @@
               <li><a href="/contact">Contact</a></li>
             </ul>
           </div>
+        </li> -->
+        <li>
+          <a href="#"><i class="fal fa-user-circle fa-lg"></i></a>
+          <div class="uk-navbar-dropdown">
+            <ul class="uk-nav uk-navbar-dropdown-nav">
+              <li><a href="/profile" class="hidden-link">Profile</a></li>
+              <!-- <li id="topnavLogin"><a href="/login" class="hidden-link">Login&nbsp;<span class="fal fa-sign-in fa-lg"></span></a></li> -->
+              <li id="topnavLogout" class="hidden-link"><a href="/logout" class="hidden-link">Logout&nbsp;<span class="fal fa-sign-out fa-lg"></span></a></li>
+            </ul>
+          </div>
         </li>
-          <li>
-            <a href="#"><i class="fal fa-user-circle fa-lg"></i></a>
-            <div class="uk-navbar-dropdown">
-              <ul class="uk-nav uk-navbar-dropdown-nav">
-                <li><a href="/profile" class="hidden-link">Profile</a></li>
-                <!-- <li id="topnavLogin"><a href="/login" class="hidden-link">Login&nbsp;<span class="fal fa-sign-in fa-lg"></span></a></li> -->
-                <li id="topnavLogout" class="hidden-link"><a href="/logout" class="hidden-link">Logout&nbsp;<span class="fal fa-sign-out fa-lg"></span></a></li>
-              </ul>
-            </div>
-          </li>
       </ul>
     </div>
   </nav>

@@ -234,3 +234,8 @@ form {
 .profileImage {
   width: 100px;
 }
+
+.completedBonus {
+  background: #000;
+  color: #fff;
+}

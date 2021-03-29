@@ -65,7 +65,7 @@
               <div class="uk-grid-small uk-child-width-1-4@s uk-flex-center uk-text-center" uk-grid>
                 <% bonuses.forEach(function(bonus) { %>
                   <div>
-                    <div class="uk-card uk-card-default uk-card-body"><%= bonus.BonusCode %></div>
+                    <div class="uk-card uk-card-default uk-card-body <%= bonus.completed %>"><%= bonus.BonusCode %> </div>
                   </div>
                 <% }) %>
               </div>

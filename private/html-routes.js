@@ -19,9 +19,14 @@ module.exports = function (app) {
     var rider = req.user.id;
     var qBonuses = await q.queryAllBonusItems();
     var qBikes = await q.queryAllBikes(rider);
-    var qCompleted = await q.queryAllBonusesWithStatus(rider);
+    var qCompleted = await q.queryCompletedIDsByRider(rider);
     console.log("==============")
     console.log(qCompleted);
+    for (i = 0; i < qBonuses.length; i++){
+      if (qCompleted.indexOf(qBonuses[i].id) > -1 ){
+        qBonuses[i].completed = "completedBonus";
+      }
+    }
 
     res.render("pages/profile", {
       activeUser,

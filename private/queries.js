@@ -184,15 +184,25 @@ module.exports.queryHandledSubmissions = async function queryHandledSubmissions(
 //   }
 // }
 
-module.exports.queryCompletedByRider = async function queryCompletedByRider(rider) {
+module.exports.queryCompletedIDsByRider = async function queryCompletedIDsByRider(rider) {
   try {
-    var result = await db.bonusLog.findAll({
-      where: {
-        user_id: rider,
-        [Op.not]: { iStatus: [0, 2] }
-      }
-    })
-    return result;
+    // const result = await db.bonusLog.findAll({
+    //   attributes: ["bonus_id"],
+    //   where: {
+    //     user_id: rider,
+    //     iStatus: 1,
+    //     bonus_id: {
+    //       [Op.not]: null
+    //     } 
+    //   }
+    // }).map(i => i.get("bonus_id"));
+    var result = await sequelize.query("SELECT bonus_id FROM bonusLogs WHERE bonus_id IS NOT NULL AND iStatus = 1 AND user_id = ?",
+    {
+      replacements: [rider],
+      type: QueryTypes.SELECT
+    });
+    var ids = JSON.stringify(result);
+    return ids;
   } catch (err) {
     throw err;
   }

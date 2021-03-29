@@ -11,18 +11,16 @@ $(document).ready(() => {
       Password: $("#Password").val().trim()
     };
 
+    // Make sure that neither email nor password are blank.
     if (!newUser.Email || !newUser.Password) {
-      console.log("Email and/or Password was blank, try again.");
       return;
     }
     // If we have an email and password, then post the new user
-    console.log("Values provided were: " + newUser.FirstName + ", " + newUser.LastName + ", " + newUser.UserName + ", " + newUser.Email + ", " + newUser.Password);
     $.ajax("/api/signup", {
       type: "POST",
       data: newUser
     })
       .then(() => {
-        console.log("Reached API Signup then clause");
         window.location.replace("/profile");
       })
       .catch(handleLoginErr);

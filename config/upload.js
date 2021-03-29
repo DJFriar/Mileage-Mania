@@ -6,10 +6,8 @@ const multer = require("multer");
 
 const imageFilter = (req, file, cb) => {
   if (file.mimetype.startsWith("image")) {
-    console.log("Image file detected");
     cb(null, true);
   } else {
-    console.log("Please upload only images");
     cb("Please upload only images.", false);
   }
 };

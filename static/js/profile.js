@@ -1,6 +1,6 @@
 $(document).ready(() => {
-  // Handle Add Bike Button.
-  $("#addBikeButton").on("click", function() {
+  // Handle Save Bike Button.
+  $("#saveNewBikeButton").on("click", function() {
     var newBike = {
       BikeName: $("#BikeName").val().trim(),
       Year: parseInt($("#BikeYear").val(),10),
@@ -17,13 +17,10 @@ $(document).ready(() => {
   });
 
   // Handle the Delete Visited button.
-  $(".btnDeleteVisited").on("click", function() {
-    var id = $(this).data("id");
-    $.ajax("/api/delVisitedPark/" + id, {
-      type: "DELETE"
-    }).then(
-      function() { location.reload(); }
-    );
+  $("#addBikeButton").on("click", function(event) {
+    event.preventDefault();
+    $("#addBikeButton").toggleClass("hide-me");
+    $("#addBikeForm").toggleClass("hide-me");
   });
 
   // Edit profile info toggle
@@ -36,13 +33,13 @@ $(document).ready(() => {
   // Save changes to user profile
   $("#saveProfileEdits").on("click", function() {
     var userID = $(this).data("userid");
-    console.log(userID);
     var updateUserProfile = {
       userID,
       FirstName: $("#FirstName").val().trim(),
       LastName: $("#LastName").val().trim(),
       UserName: $("#UserName").val().trim(),
-      Email: $("#Email").val().trim()
+      Email: $("#Email").val().trim(),
+      ZipCode: $("#ZipCode").val().trim()
     }
 
     $.ajax("/profile", {

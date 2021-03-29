@@ -21,31 +21,46 @@
                 <form class="profileData ">
                   <div class="uk-text-lead" id="profileInfo">
                     <p class="uk-margin-remove"><%= user.FirstName %>&nbsp;<%= user.LastName %></p>
-                    <p class="uk-margin-remove"><%= user.UserName %></p>
+                    <p class="uk-margin-remove"><%= user.UserName %>&nbsp;#<%= user.FlagNumber %></p>
                     <p class="uk-margin-remove"><%= user.Email %></p>
+                    <p class="uk-margin-remove"><%= user.ZipCode %></p>
                   </div>
                   <div class="hide-me" id="editProfileInfo">
-                    <p >
+                    <div class="uk-grid-small" uk-grid>
                       <div class="uk-form-stacked">
                         <label class="uk-form-label" for="FirstName">First Name</label>
-                        <input class="uk-input uk-form-width-small" type="text" id="FirstName" value="<%= user.FirstName %>">
+                        <input class="uk-input uk-width-1-1" type="text" id="FirstName" value="<%= user.FirstName %>">
                       </div>
                       <div class="uk-form-stacked">
                         <label class="uk-form-label" for="LastName">Last Name</label>
-                        <input class="uk-input uk-form-width-small" type="text" id="LastName" value="<%= user.LastName %>">
+                        <input class="uk-input uk-width-1-1" type="text" id="LastName" value="<%= user.LastName %>">
                       </div>
-                    </p>
-                    <p class="uk-form-stacked">
-                      <label class="uk-form-label" for="UserName">Username</label>
-                      <input class="uk-input uk-form-width-medium" type="text" id="UserName" value="<%= user.UserName %>">
-                    </p>
-                    <p class="uk-form-stacked">
-                      <label class="uk-form-label" for="Email">Email</label>
-                      <input class="uk-input uk-form-width-medium" type="text" id="Email" value="<%= user.Email %>">
-                    </p>
-                    <button class="uk-button uk-button-default uk-button-small editProfile">Cancel</button>
-                    <button class="uk-button uk-button-default uk-button-small" type="button" 
-                      id="saveProfileEdits" data-userid="<%= user.id %>">Save</button>
+                    </div>
+                    <div class="uk-grid-small" uk-grid>
+                      <div class="uk-form-stacked">
+                        <label class="uk-form-label" for="UserName">Username</label>
+                        <input class="uk-input uk-width-1-1" type="text" id="UserName" value="<%= user.UserName %>">
+                      </div>
+                      <div class="uk-form-stacked">
+                        <label class="uk-form-label" for="FlagNumber">Flag Number</label>
+                        <input class="uk-input uk-width-1-1" type="text" id="FlagNumber" value="<%= user.FlagNumber %>">
+                      </div>
+                    </div>
+                    <div class="uk-grid-small" uk-grid>
+                      <div class="uk-form-stacked">
+                        <label class="uk-form-label" for="Email">Email</label>
+                        <input class="uk-input uk-width-1-1" type="text" id="Email" value="<%= user.Email %>">
+                      </div>
+                      <div class="uk-form-stacked">
+                        <label class="uk-form-label" for="ZipCode">Zip Code</label>
+                        <input class="uk-input uk-width-1-1" type="text" id="ZipCode" value="<%= user.ZipCode %>">
+                      </div>
+                    </div>
+                    <div style="margin-top: 16px;">
+                      <button class="uk-button uk-button-default uk-button-small editProfile">Cancel</button>
+                      <button class="uk-button uk-button-default uk-button-small" type="button" 
+                        id="saveProfileEdits" data-userid="<%= user.id %>">Save</button>
+                    </div>
                   </div>
                 </form>
               </p>
@@ -54,13 +69,18 @@
           <div uk-grid>
             <div class="uk-width-1-2@s">
               <h5>My Stats</h5>
-              <div>
-                Total Mileage: XX,XXX
+              <div class="uk-grid-small" uk-grid>
+                <div class="uk-align-left" uk-tooltip="Subtracts latest approved Odometer submission from the first approved one.">
+                  Total Mileage: <%= (mileageRidden).toLocaleString('en') %>
+                </div>
+                <div class="uk-align-right" uk-tooltip="Only counts approved Grand Tour submissions.">
+                  Total Points: <%= (pointsEarned).toLocaleString('en') %>
+                </div>
               </div>
               <div class="uk-grid-small uk-child-width-1-4@s uk-flex-center uk-text-center" uk-grid>
                 <% bonuses.forEach(function(bonus) { %>
                   <div>
-                    <div class="uk-card uk-card-default uk-card-body"><%= bonus.BonusCode %></div>
+                    <div class="uk-card uk-card-default uk-card-body <%= bonus.completed %>"><%= bonus.BonusCode %> </div>
                   </div>
                 <% }) %>
               </div>
@@ -95,7 +115,10 @@
                     <% }) %>
                 </tbody>
               </table>
-              <form class="uk-grid-small uk-form-stacked" uk-grid>
+              <div class="uk-align-right">
+                <button type="button" id="addBikeButton" class="uk-button uk-button-default">Add Bike</button>
+              </div>
+              <form class="uk-grid-small uk-form-stacked hide-me" id="addBikeForm" uk-grid>
                 <div class="uk-width-1-1@s">
                   <label class="uk-form-label" for="BikeName">Bike Name</label>
                   <input class="uk-input" id="BikeName" rows="5" placeholder="Mr. Ed"></input>
@@ -116,7 +139,7 @@
                   &nbsp;
                 </div>
                 <div class="uk-width-1-3@s">
-                  <button type="button" id="addBikeButton" class="uk-button uk-button-default">Add Bike</button>
+                  <button type="button" id="saveNewBikeButton" class="uk-button uk-button-default">Save Bike</button>
                 </div>
               </form>
             </div>

@@ -42,7 +42,6 @@ module.exports.queryAllBonusesWithStatus = async function queryAllBonusesWithSta
         replacements: [rider],
         type: QueryTypes.SELECT
       });
-    console.log(result);
     return result;
   } catch (err) {
     throw err;
@@ -167,32 +166,15 @@ module.exports.queryHandledSubmissions = async function queryHandledSubmissions(
   }
 }
 
-// module.exports.queryHandledSubmissions = async function queryHandledSubmissions() {
-//   try {
-//     var result = await db.bonusLog.findAll({
-//       limit: 4,
-//       where: {
-//         iStatus: [1, 2]
-//       },
-//       order: [
-//         ['updatedAt', 'DESC']
-//       ]
-//     })
-//     return result;
-//   } catch (err) {
-//     throw err;
-//   }
-// }
-
-module.exports.queryCompletedByRider = async function queryCompletedByRider(rider) {
+module.exports.queryCompletedIDsByRider = async function queryCompletedIDsByRider(rider) {
   try {
-    var result = await db.bonusLog.findAll({
-      where: {
-        user_id: rider,
-        [Op.not]: { iStatus: [0, 2] }
-      }
-    })
-    return result;
+    var result = await sequelize.query("SELECT bonus_id FROM bonusLogs WHERE bonus_id IS NOT NULL AND iStatus = 1 AND user_id = ?",
+    {
+      replacements: [rider],
+      type: QueryTypes.SELECT
+    });
+    var ids = JSON.stringify(result);
+    return ids;
   } catch (err) {
     throw err;
   }
@@ -206,6 +188,45 @@ module.exports.querySubmissionsByRider = async function querySubmissionsByRider(
       type: QueryTypes.SELECT
     });
     return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
+module.exports.queryMileageRiddenByRider = async function queryMileageRiddenByRider(rider) {
+  try {
+    var getStartingMileage = await sequelize.query("SELECT odoValue FROM bonusLogs WHERE odoValue IS NOT NULL AND iStatus = 1 AND user_id = ? ORDER BY createdAt ASC LIMIT 1",
+    {
+      raw: true,
+      replacements: [rider],
+      type: QueryTypes.SELECT
+    });
+
+    var getMostRecentMileage = await sequelize.query("SELECT odoValue FROM bonusLogs WHERE odoValue IS NOT NULL AND iStatus = 1 AND user_id = ? ORDER BY createdAt DESC LIMIT 1",
+    {
+      replacements: [rider],
+      type: QueryTypes.SELECT
+    });
+    var mileageRidden = getMostRecentMileage[0].odoValue - getStartingMileage[0].odoValue;
+    return mileageRidden;
+  } catch (err) {
+    throw err;
+  }
+}
+
+module.exports.queryPointsEarnedByRider = async function queryMileageRiddenByRider(rider) {
+  try {
+    var getStartingMileage = await sequelize.query("SELECT bl.*, bi.`Value` FROM bonusLogs bl INNER JOIN bonusItems bi ON bi.id = bl.bonus_id WHERE bl.bonus_id IS NOT NULL AND bl.iStatus = 1 AND bl.user_id = ?",
+    {
+      raw: true,
+      replacements: [rider],
+      type: QueryTypes.SELECT
+    });
+    var pointsEarned = 0;
+    for (i = 0; i < getStartingMileage.length; i++){
+      pointsEarned += getStartingMileage[i].Value;
+    }
+    return pointsEarned;
   } catch (err) {
     throw err;
   }

@@ -36,7 +36,7 @@
       </dd>
       <dd>
         <div>
-          <%= pendingBonusDetail[0].createdAt %>
+          <%= moment(pendingBonuses[0].createdAt).format('D MMM YYYY @ kk:mm').toUpperCase(); %>
         </div>
       </dd>
       <dt>
@@ -52,18 +52,6 @@
             <%= pendingBikeInfo[0].Model %><br />
               Allen, TX
       </dd>
-      <!-- <dt>Photo Info</dt>
-                <dd>
-                  <span class="fas fa-clock fa-fw"></span>&nbsp;Captured: 28 Mar 2021 @
-                  1408<br />
-                  <a class="uk-link-reset"
-                    href="https://www.google.com/maps/@?api=1&map_action=map&zoom=20&basemap=satellite&center=33.639588,-95.523926"
-                    target="_blank"><span class="fas fa-map-marker-alt fa-fw"></span>&nbsp;Lat:
-                    33.639588 / Lon: -95.523926<br /></a>
-                  <div class="mapBox">
-                    <div id="map"></div>
-                  </div>
-                </dd> -->
     </dl>
   </div>
 </div>

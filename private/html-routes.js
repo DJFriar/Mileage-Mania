@@ -15,20 +15,26 @@ module.exports = function (app) {
   app.get("/profile", isAuthenticated, async (req, res) => {
     var activeUser = false
     if (req.user) { activeUser = true };
-    console.log(req.user);
     var rider = req.user.id;
     var qBonuses = await q.queryAllBonusItems();
     var qBikes = await q.queryAllBikes(rider);
-    var qCompleted = await q.queryAllBonusesWithStatus(rider);
-    console.log("==============")
-    console.log(qCompleted);
+    var qCompleted = await q.queryCompletedIDsByRider(rider);
+    var qMileageRidden = await q.queryMileageRiddenByRider(rider);
+    var qPointsEarned = await q.queryPointsEarnedByRider(rider);
+    for (i = 0; i < qBonuses.length; i++){
+      if (qCompleted.indexOf(qBonuses[i].id) > -1 ){
+        qBonuses[i].completed = "completedBonus";
+      }
+    }
 
     res.render("pages/profile", {
       activeUser,
       user: req.user,
       bonuses: qBonuses,
       bikes: qBikes,
-      completed: qCompleted
+      completed: qCompleted,
+      mileageRidden: qMileageRidden,
+      pointsEarned: qPointsEarned
     });
   });
 
@@ -39,7 +45,6 @@ module.exports = function (app) {
     var qBonuses = await q.queryAllBonusItems();
     var qBikes = await q.queryAllBikes(rider);
     var qSubmissionHistory = await q.querySubmissionsByRider(rider);
-    console.debug(qSubmissionHistory);
     res.render("pages/submit", {
       activeUser,
       user: req.user,
@@ -61,8 +66,8 @@ module.exports = function (app) {
     } else if (req.user.id) {
       userStatus = 1;
     }
-    console.log("====================");
-    console.log(req.user);
+    console.log("======== PENDING BONUSES =========");
+    console.log(qPendingSubmissionCount);
     if (qPendingSubmissionCount > 0) {
       var qPendingSubmissions = await q.queryPendingSubmissions();
       var qPendingBonusDetail = await q.queryPendingBonusDetail(qPendingSubmissions[0].bonus_id);
@@ -112,7 +117,6 @@ module.exports = function (app) {
     var activeUser = false;
     if (req.user) { activeUser = true };
     var qPendingSubmissionCount = await q.queryPendingSubmissionCount();
-    console.log(qPendingSubmissionCount + " remaining submissions");
 
     if(activeUser) {
       res.render("pages/stats", {
@@ -142,7 +146,22 @@ module.exports = function (app) {
     });
   });
 
-  app.get("/", isAuthenticated, function (req, res) {
+  app.get("/", isAuthenticated, async (req, res) => {
+    var activeUser = false
+    var qHandledSubmissions = await q.queryHandledSubmissions(8);
+    if (req.user) { 
+      activeUser = true;
+      res.render("pages/index", {
+        activeUser,
+        user: req.user,
+        handledSubmissions: qHandledSubmissions
+      });
+    } else {
+      res.render("pages/index", {
+        activeUser,
+        handledSubmissions: qHandledSubmissions
+      });
+    };
   });
 
   app.get("/login", isAuthenticated, function (req, res) {

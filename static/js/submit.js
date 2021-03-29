@@ -29,7 +29,6 @@ $(document).ready(function () {
 
   $("#Odo").on("change",function(event) {
     event.preventDefault();
-    console.log("Odo checked");
     $(".odoField").removeClass("hide-me");
     $(".gtField").addClass("hide-me");
     $(".bonusField").removeClass("hide-me");
@@ -37,7 +36,6 @@ $(document).ready(function () {
 
   $("#GT").on("change",function(event) {
     event.preventDefault();
-    console.log("GT checked");
     $(".gtField").removeClass("hide-me");
     $(".odoField").addClass("hide-me");
     $(".bonusField").removeClass("hide-me");

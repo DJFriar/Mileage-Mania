@@ -28,7 +28,6 @@ module.exports = function (app) {
   // Delete a Bonus
   app.delete("/api/bonus/:id", (req, res) => {
     const id = req.params.id;
-    console.log("Removing " + id + " from bonus list");
     db.bonusItem.destroy({
       where: {
         id: id
@@ -63,8 +62,6 @@ module.exports = function (app) {
   // If the user has valid login credentials, send them to the profile page.
   // Otherwise the user will be sent an error
   app.post("/api/login", passport.authenticate("local"), (req, res) => {
-    console.log(req.user);
-    // Sending back a password, even a hashed password, isn't a good idea
     res.json({
       email: req.user.Email,
       id: req.user.id
@@ -117,7 +114,6 @@ module.exports = function (app) {
 
   // Update submissions
   app.put("/handle-submission", function (req, res) {
-    console.debug(req.body);
     db.bonusLog.update({ iStatus: req.body.iStatus }, {
       where: { id: req.body.submissionID }
     });
@@ -130,11 +126,12 @@ module.exports = function (app) {
       FirstName: req.body.FirstName,
       LastName: req.res.LastName,
       UserName: req.body.UserName,
-      Email: req.body.Email
+      Email: req.body.Email,
+      ZipCode: req.body.ZipCode
     }, {
       where: { id: req.body.userID }
     });
-    res.redirect("/profile");
+    res.send("success");
   })
 
   // Get all bikes

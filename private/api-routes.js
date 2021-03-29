@@ -126,11 +126,12 @@ module.exports = function (app) {
       FirstName: req.body.FirstName,
       LastName: req.res.LastName,
       UserName: req.body.UserName,
-      Email: req.body.Email
+      Email: req.body.Email,
+      ZipCode: req.body.ZipCode
     }, {
       where: { id: req.body.userID }
     });
-    res.redirect("/profile");
+    res.send("success");
   })
 
   // Get all bikes

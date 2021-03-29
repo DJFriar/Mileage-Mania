@@ -38,7 +38,8 @@ $(document).ready(() => {
       FirstName: $("#FirstName").val().trim(),
       LastName: $("#LastName").val().trim(),
       UserName: $("#UserName").val().trim(),
-      Email: $("#Email").val().trim()
+      Email: $("#Email").val().trim(),
+      ZipCode: $("#ZipCode").val().trim()
     }
 
     $.ajax("/profile", {

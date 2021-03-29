@@ -21,31 +21,46 @@
                 <form class="profileData ">
                   <div class="uk-text-lead" id="profileInfo">
                     <p class="uk-margin-remove"><%= user.FirstName %>&nbsp;<%= user.LastName %></p>
-                    <p class="uk-margin-remove"><%= user.UserName %></p>
+                    <p class="uk-margin-remove"><%= user.UserName %>&nbsp;#<%= user.FlagNumber %></p>
                     <p class="uk-margin-remove"><%= user.Email %></p>
+                    <p class="uk-margin-remove"><%= user.ZipCode %></p>
                   </div>
                   <div class="hide-me" id="editProfileInfo">
-                    <p >
+                    <div class="uk-grid-small" uk-grid>
                       <div class="uk-form-stacked">
                         <label class="uk-form-label" for="FirstName">First Name</label>
-                        <input class="uk-input uk-form-width-small" type="text" id="FirstName" value="<%= user.FirstName %>">
+                        <input class="uk-input uk-width-1-1" type="text" id="FirstName" value="<%= user.FirstName %>">
                       </div>
                       <div class="uk-form-stacked">
                         <label class="uk-form-label" for="LastName">Last Name</label>
-                        <input class="uk-input uk-form-width-small" type="text" id="LastName" value="<%= user.LastName %>">
+                        <input class="uk-input uk-width-1-1" type="text" id="LastName" value="<%= user.LastName %>">
                       </div>
-                    </p>
-                    <p class="uk-form-stacked">
-                      <label class="uk-form-label" for="UserName">Username</label>
-                      <input class="uk-input uk-form-width-medium" type="text" id="UserName" value="<%= user.UserName %>">
-                    </p>
-                    <p class="uk-form-stacked">
-                      <label class="uk-form-label" for="Email">Email</label>
-                      <input class="uk-input uk-form-width-medium" type="text" id="Email" value="<%= user.Email %>">
-                    </p>
-                    <button class="uk-button uk-button-default uk-button-small editProfile">Cancel</button>
-                    <button class="uk-button uk-button-default uk-button-small" type="button" 
-                      id="saveProfileEdits" data-userid="<%= user.id %>">Save</button>
+                    </div>
+                    <div class="uk-grid-small" uk-grid>
+                      <div class="uk-form-stacked">
+                        <label class="uk-form-label" for="UserName">Username</label>
+                        <input class="uk-input uk-width-1-1" type="text" id="UserName" value="<%= user.UserName %>">
+                      </div>
+                      <div class="uk-form-stacked">
+                        <label class="uk-form-label" for="FlagNumber">Flag Number</label>
+                        <input class="uk-input uk-width-1-1" type="text" id="FlagNumber" value="<%= user.FlagNumber %>">
+                      </div>
+                    </div>
+                    <div class="uk-grid-small" uk-grid>
+                      <div class="uk-form-stacked">
+                        <label class="uk-form-label" for="Email">Email</label>
+                        <input class="uk-input uk-width-1-1" type="text" id="Email" value="<%= user.Email %>">
+                      </div>
+                      <div class="uk-form-stacked">
+                        <label class="uk-form-label" for="ZipCode">Zip Code</label>
+                        <input class="uk-input uk-width-1-1" type="text" id="ZipCode" value="<%= user.ZipCode %>">
+                      </div>
+                    </div>
+                    <div style="margin-top: 16px;">
+                      <button class="uk-button uk-button-default uk-button-small editProfile">Cancel</button>
+                      <button class="uk-button uk-button-default uk-button-small" type="button" 
+                        id="saveProfileEdits" data-userid="<%= user.id %>">Save</button>
+                    </div>
                   </div>
                 </form>
               </p>

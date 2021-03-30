@@ -156,7 +156,8 @@ module.exports = function (app) {
       res.render("pages/index", {
         activeUser,
         user: req.user,
-        handledSubmissions: qHandledSubmissions
+        handledSubmissions: qHandledSubmissions,
+        moment: moment
       });
     } else {
       res.render("pages/index", {

@@ -103,7 +103,8 @@ module.exports = function (app) {
       res.render("pages/livefeed", {
         activeUser,
         user: req.user,
-        handledSubmissions: qHandledSubmissions
+        handledSubmissions: qHandledSubmissions,
+        moment: moment
       });
     } else {
       res.render("pages/livefeed", {

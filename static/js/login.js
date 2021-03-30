@@ -24,14 +24,14 @@ $(document).ready(() => {
   });
 
   // loginUser does a post to our "api/login" route and if successful, redirects us the the profile page
-  function loginUser(email, password, isAdmin) {
+  function loginUser(email, password) {
     $.post("/api/login", {
       Email: email,
       Password: password
     })
-      .then(() => {
-        if (isAdmin === 1) {
-          window.location.replace("/admin");
+      .then((res) => {
+        if (res.isAdmin) {
+          window.location.replace("/review");
         } else {
           window.location.replace("/submit");
         }

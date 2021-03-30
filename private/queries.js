@@ -207,10 +207,16 @@ module.exports.queryMileageRiddenByRider = async function queryMileageRiddenByRi
       replacements: [rider],
       type: QueryTypes.SELECT
     });
-    var mileageRidden = getMostRecentMileage[0].odoValue - getStartingMileage[0].odoValue;
-    return mileageRidden;
+    var mileageRidden = 0;
+    if (getMostRecentMileage[0].odoValue - getStartingMileage[0].odoValue > 0) {
+      mileageRidden = getMostRecentMileage[0].odoValue - getStartingMileage[0].odoValue;
+      return mileageRidden;
+    } else {
+      return mileageRidden;
+    }
   } catch (err) {
-    throw err;
+    return mileageRidden;
+    // throw err;
   }
 }
 
@@ -228,6 +234,7 @@ module.exports.queryPointsEarnedByRider = async function queryMileageRiddenByRid
     }
     return pointsEarned;
   } catch (err) {
+    return
     throw err;
   }
 }

@@ -160,7 +160,8 @@ module.exports = function (app) {
     } else {
       res.render("pages/index", {
         activeUser,
-        handledSubmissions: qHandledSubmissions
+        handledSubmissions: qHandledSubmissions,
+        moment: moment
       });
     };
   });

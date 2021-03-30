@@ -108,7 +108,8 @@ module.exports = function (app) {
     } else {
       res.render("pages/livefeed", {
         activeUser,
-        handledSubmissions: qHandledSubmissions
+        handledSubmissions: qHandledSubmissions,
+        moment: moment
       });
     };
   })

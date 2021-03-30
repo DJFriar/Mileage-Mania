@@ -64,7 +64,8 @@ module.exports = function (app) {
   app.post("/api/login", passport.authenticate("local"), (req, res) => {
     res.json({
       email: req.user.Email,
-      id: req.user.id
+      id: req.user.id,
+      isAdmin: req.user.isAdmin
     });
   });
 

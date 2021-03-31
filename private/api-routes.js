@@ -125,7 +125,7 @@ module.exports = function (app) {
   app.put("/profile", function (req, res) {
     db.user.update({
       FirstName: req.body.FirstName,
-      LastName: req.res.LastName,
+      LastName: req.body.LastName,
       UserName: req.body.UserName,
       Email: req.body.Email,
       ZipCode: req.body.ZipCode

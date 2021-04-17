@@ -7,6 +7,10 @@ const isAuthenticated = require("../config/isAuthenticated");
 const upload = multer({ dest: '../static/uploads' });
 
 module.exports = function (app) {
+  // 
+  // Bonus Related
+  // 
+
   // Create a Bonus
   app.post("/api/bonus", (req, res) => {
     db.bonusItem.create({
@@ -25,6 +29,37 @@ module.exports = function (app) {
     });
   });
 
+  // Fetch a Bonus
+  app.get("/api/bonus/:id", (req, res) => {
+    const id = req.params.id;
+    db.bonusItem.findOne({
+      where: {
+        id: id
+      }
+    }).then(function (dbPost) {
+      res.json(dbPost);
+    });
+  })
+  
+  // Update a Bonus
+  app.put("/api/bonus/:id", function (req, res) {
+    db.bonusItem.update({ 
+      BonusCode: req.body.BonusCode,
+      BonusName: req.body.BonusName,
+      BonusDescription: req.body.BonusDescription,
+      BonusRequirements: req.body.BonusRequirements,
+      Value: req.body.Value,
+      maxAllowed: req.body.maxAllowed,
+      RallyYear: 2021,
+      hasExtraMile: false,
+      ExtraMileRequirements: "",
+      ExtraMileValue: 0
+    }, {
+      where: { id: req.body.bonus_id }
+    });
+    res.send("success");
+  })
+
   // Delete a Bonus
   app.delete("/api/bonus/:id", (req, res) => {
     const id = req.params.id;
@@ -36,6 +71,10 @@ module.exports = function (app) {
       res.status(202).send();
     });
   });
+
+  // 
+  // Authentication Related
+  // 
 
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
@@ -69,6 +108,16 @@ module.exports = function (app) {
     });
   });
 
+  // Route for logging user out
+  app.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/");
+  });
+
+  // 
+  // Bike Related
+  // 
+
   // Create a Bike
   app.post("/api/bike", isAuthenticated, (req, res) => {
     db.bike.create({
@@ -81,6 +130,17 @@ module.exports = function (app) {
       res.status(202).send();
     });
   });
+
+  // Get all bikes
+  app.get("/api/bikes", function (req, res) {
+    db.bike.findAll({}).then(function (dbPost) {
+      res.json(dbPost);
+    });
+  });
+
+  // 
+  // Submission Related
+  // 
 
   // Accept the image the user uploaded, resize it and save it.
   app.post('/submit-bonus',
@@ -121,6 +181,10 @@ module.exports = function (app) {
     res.send("success");
   })
 
+  // 
+  // Profile Related
+  // 
+
   // Handle Profile Updates
   app.put("/profile", function (req, res) {
     db.user.update({
@@ -135,36 +199,4 @@ module.exports = function (app) {
     res.send("success");
   })
 
-  // Get all bikes
-  app.get("/api/bikes", function (req, res) {
-    db.bike.findAll({}).then(function (dbPost) {
-      res.json(dbPost);
-    });
-  });
-
-  // Route for logging user out
-  app.get("/logout", (req, res) => {
-    req.logout();
-    res.redirect("/");
-  });
-
-
-
-
-
-
-  // Route for getting some data about our user to be used client side
-  app.get("/api/user_data", (req, res) => {
-    if (!req.user) {
-      // The user is not logged in, send back an empty object
-      res.json({});
-    } else {
-      // Otherwise send back the user's email and id
-      // Sending back a password, even a hashed password, isn't a good idea
-      res.json({
-        email: req.user.email,
-        id: req.user.id
-      });
-    }
-  });
 };

@@ -66,8 +66,6 @@ module.exports = function (app) {
     } else if (req.user.id) {
       userStatus = 1;
     }
-    console.log("======== PENDING BONUSES =========");
-    console.log(qPendingSubmissionCount);
     if (qPendingSubmissionCount > 0) {
       var qPendingSubmissions = await q.queryPendingSubmissions();
       var qPendingBonusDetail = await q.queryPendingBonusDetail(qPendingSubmissions[0].bonus_id);
@@ -139,7 +137,6 @@ module.exports = function (app) {
     if (req.user) { activeUser = true };
     var qBonuses = await q.queryAllBonusItems();
     var qRiders = await q.queryAllRiders();
-
     res.render("pages/admin", {
       activeUser,
       user: req.user,

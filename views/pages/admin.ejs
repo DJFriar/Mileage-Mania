@@ -23,6 +23,7 @@
               <div class="addBonusBtnDiv">
                 <button type="button" id="addBonusButton" class="uk-button uk-button-default">Add New Bonus</button>
               </div>
+              <!-- Add New Bonus Section -->
               <div class="addBonusSection hide-me">
                 <h4>Add Bonus</h4>
                 <form class="uk-grid-small uk-form-stacked" uk-grid>
@@ -56,8 +57,8 @@
                     &nbsp;
                   </div>
                   <div class="uk-width-1-6@s">
-                    <label class="uk-form-label" for="saveBonusButton">&nbsp;</label>
-                    <button type="button" id="saveBonusButton" class="uk-button uk-button-default">Save Bonus</button>
+                    <label class="uk-form-label" for="saveNewBonusButton">&nbsp;</label>
+                    <button type="button" id="saveNewBonusButton" class="uk-button uk-button-default">Save Bonus</button>
                   </div>
                 </form>
               </div>
@@ -87,13 +88,16 @@
                       <td>
                         <%= bonus.Value %>
                       </td>
-                      <td><span class="deleteBonusButton" data-id="<%- bonus.id %>"><i class="far fa-trash-alt"></i></span>&nbsp;
-                        <span class="editBonusButton" data-id="<%- bonus.id %>"><i class="fal fa-edit"></i></span>
+                      <td><span class="deleteBonusButton" data-uid="<%- bonus.id %>"><i class="far fa-trash-alt"></i></span>&nbsp;
+                        <span class="editBonusButton" data-uid="<%- bonus.id %>"><i class="fal fa-edit"></i></span>
                       </td>
                     </tr>
                     <% }) %>
                 </tbody>
               </table>
+              <div id="editBonusModal" class="modal">
+                <%- include('../partials/editBonusModal'); %>
+              </div>
             </li>
             <!-- Rider Admin Tab -->
             <li>

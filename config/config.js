@@ -8,10 +8,6 @@ module.exports = {
     host: process.env.DBHOST,
     dialect: "mysql"
   },
-  Test: {
-    use_env_variable: "JAWSDB_URL",
-    dialect: "mysql"
-  },
   Production: {
     username: process.env.DBUSER,
     password: process.env.DBPASS,

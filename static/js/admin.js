@@ -1,5 +1,11 @@
 $(document).ready(() => {  
   // Handle Add Bonus Button
+  $("#addBonusButton").on("click", function(e) {
+    e.preventDefault();
+    $(".addBonusSection").removeClass("hide-me");
+    $(".addBonusBtnDiv").addClass("hide-me");
+  })
+  // Handle Save Bonus Button
   $("#saveBonusButton").on("click", function() {
     var newBonus = {
       BonusCode: $("#BonusCode").val().trim().toUpperCase(),

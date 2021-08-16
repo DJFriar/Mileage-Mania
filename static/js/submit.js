@@ -1,4 +1,7 @@
 $(document).ready(function () {
+
+  $('#bonus_id').select2();
+
   let handleOdoPhoto = function (input, placeToInsertImagePreview) {
     if (input.files) {
       let reader = new FileReader();
